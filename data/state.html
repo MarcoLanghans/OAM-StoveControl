@@ -1,0 +1,488 @@
+<!--style>
+    #liveData { width: 100%; border-collapse: collapse; }
+    /*-#software, #liveData tr, #sendMsg { display:none ; }*/
+    #liveData tr .id { text-align: right; }
+    #liveData tr .name { font-style: italic; }
+    #liveData tr .value, #liveData tr .action { text-align: center; }
+    #lastRefresh { float: right; font-style: italic; }
+    .redfont { color:red; }
+    .greenfont { color:green; }
+    .inputResult { margin-left: 5px; width: 60px; }
+    .textareaResponse { border: 1px solid #ccc; padding: 1px 6px; display: block; width: 80%; overflow: hidden; resize: both; min-height: 40px; line-height: 20px; }
+</style-->
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #liveData { width: 100%; border-collapse: collapse; }
+        /*-#liveData tr { display:none ; }*/
+        #liveData tr .id { text-align: right; }
+        #liveData tr .name { font-style: italic; }
+        #liveData tr .value, #liveData tr .action { text-align: center; }
+        #lastRefresh { float: right; font-style: italic; }
+        .greenfont { color:green; }
+        .inputResult { margin-left: 5px; width: 60px; }
+        .textareaResponse { border: 1px solid #ccc; padding: 1px 6px; display: block; width: %; overflow: hidden; resize: both; min-height: 40px; line-height: 20px; }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!--Top menu -->
+        <div class="sidebar">
+           <!--profile image & text-->
+           <div class="profile">
+            <img src="fire.png" alt="profile_picture">
+            <h3>Stove Control</h3>
+            <p></p>
+        </div> 
+           <!--menu item-->
+            <ul>
+                <li>
+                    <a href="index.html">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="state.html" class="active"> 
+                    <span class="icon"><i class="fas fa-desktop"></i></span>
+                    <span class="item">Status</span>
+                </a>
+                </li>
+                <!--li>
+                    <a href="cog.html">
+                        <span class="icon"><i class="fas fa-cog"></i></span>
+                        <span class="item">Settings</span>
+                    </a>
+                </li-->
+            </ul>
+        </div>
+        <div class="Center">
+            <div id="Center"></div>
+            <span id="lastRefresh">Loading...</span>
+                <table id="liveData" class="pure-form">
+                    <thead>
+                        <tr>
+                        </tr>
+                    </thead>    
+                    <tbody>
+                        <tr id="STATUS">
+                            <td class="id">STATUS ⚡️</td>
+                            <td class="name">Stove Status</td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr id="LSTATUS">
+                            <td class="id">LSTATUS ⚡️</td>
+                            <td class="name">Stove Status</td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr id="PWR">
+                            <td class="id">PWR 🔥</td>
+                            <td class="name">Power</td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr id="SETP">
+                            <td class="id">SETP 🌡</td>
+                            <td class="name">Setpoint</td>
+                            <td class="value" data-unit="°C" data-number="1"></td>
+                        </tr>
+                        <tr id="T1">
+                            <td class="id">T1 🌡️</td>
+                            <td class="name">Ambiant Temperature (T1)</td>
+                            <td class="value" data-unit="°C" data-number="1"></td>
+                        </tr>
+                        <tr id="T2">
+                            <td class="id">T2 🌡️</td>
+                            <td class="name">Pellets Temperature (T2)</td>
+                            <td class="value" data-unit="°C" data-number="1"></td>
+                        </tr>
+                        <tr id="T3">
+                            <td class="id">T3 🌡️</td>
+                            <td class="name">Fumes Temperature (T3)</td>
+                            <td class="value" data-unit="°C" data-number="1"></td>
+                        </tr>
+                        <tr id="IGN">
+                            <td class="id">IGN 💥</td>
+                            <td class="name">Number of ignitions</td>
+                            <td class="value" data-number="1"></td>
+                        </tr>
+                        <tr id="POWERTIME">
+                            <td class="id">POWERTIME ⌛</td>
+                            <td class="name">Power Time</td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr id="HEATTIME">
+                            <td class="id">HEATTIME ⌛</td>
+                            <td class="name">Heat Time</td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr id="SERVICETIME">
+                            <td class="id">SERVICETIME 🛠</td>
+                            <td class="name">Service time</td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr id="ONTIME">
+                            <td class="id">ONTIME ⌛</td>
+                            <td class="name">ON Time</td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr id="PQT">
+                            <td class="id">PQT 🫘</td>
+                            <td class="name">Quantity of Pellet</td>
+                            <td class="value" data-unit="kg" data-number="1"></td>
+                        </tr>
+                        <tr id="FDR">
+                            <td class="id">FDR 🚀</td>
+                            <td class="name">Feeder</td>
+                            <td class="value"></td>
+                        </tr>
+                        <tr id="DP_TARGET">
+                            <td class="id">DP_TARGET 🎯</td>
+                            <td class="name">Target Pressure</td>
+                            <td class="value" data-number="1"></td>
+                        </tr>
+                        <tr id="DP_PRESS">
+                            <td class="id">DP_PRESS 📈</td>
+                            <td class="name">Delta Pressure</td>
+                            <td class="value" data-number="1"></td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+    </div>
+<script>
+    fetch('values.json')
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+            //console.log(data.STATUS)
+            const statusCode = [{ state:'0',value:'OFF ❌'},{state: '1', value:'OFF TIMER ⏲️❌'},{state: '2', value:'TESTFIRE'},{state: '3', value:'HEATUP'},{state: '14', value : 'FUELIGN'},{state: '5', value: 'IGNTEST'},{state: '6', value:'BURNING 🔥'},{state: '9',value:'COOLFLUID'},{state: '10', value : 'FIRESTOP'},{state: '11', value: 'CLEANFIRE'},{state: '12', value: 'COOL ❄️'},{state: '241', value:'CHIMNEY ALARM 🚨'},{state: '243', value: 'GRATE ERROR ⚠️'},{state: '244', value: 'NTC2 ALARM 🚨'},{state: '245', value: 'NTC3 ALARM 🚨'},{state: '247', value: 'DOOR ALARM 🚨'},{state: '248' , value: 'PRESS ALARM 🚨'},{state: '249', value: 'NTC1 ALARM 🚨'},{state: '250', value:'TC1 ALARM 🚨'},{state: '252', value: 'GAS ALARM 🚨'},{state: '253', value: 'NOPELLET ALARM 🚨'}]; 
+            statusCode.forEach((element) => {
+                if(element.state == data.STATUS){
+                    document.getElementById("liveData").rows[1].cells[2].innerHTML = element.value
+                }
+            });
+            
+            //console.log(data.LSTATUS)
+            
+            document.getElementById("liveData").rows[2].cells[2].innerHTML = data.LSTATUS
+            //document.querySelector("#LSTATUS").insertAdjacentHTML('beforeend', `<li>${data.LSTATUS}</li>`)
+            //document.getElementById("liveData").rows[3].cells[2].innerHTML = data.LSTATUS    
+            //console.log(data.PWR)
+            document.getElementById("liveData").rows[3].cells[2].innerHTML = data.PWR
+            //document.querySelector("#PWR").insertAdjacentHTML('beforeend', `<li>${data.PWR}</li>`)
+            //console.log(data.setPoint)
+            document.getElementById("liveData").rows[4].cells[2].innerHTML = data.setPoint + document.getElementById("liveData").rows[4].cells[2].getAttribute('data-unit')
+            //console.log(data.T1)             
+            document.getElementById("liveData").rows[5].cells[2].innerHTML = data.T1 + document.getElementById("liveData").rows[5].cells[2].getAttribute('data-unit')
+            //document.querySelector("#T1").insertAdjacentHTML('beforeend', `<li>${data.T1}</li>`)
+            //console.log(data.T2)
+            document.getElementById("liveData").rows[6].cells[2].innerHTML = data.T2 + document.getElementById("liveData").rows[6].cells[2].getAttribute('data-unit')
+            //document.querySelector("#T2").insertAdjacentHTML('beforeend', `<li>${data.T2}</li>`)
+            //console.log(data.T3)
+            document.getElementById("liveData").rows[7].cells[2].innerHTML = data.T3 + document.getElementById("liveData").rows[7].cells[2].getAttribute('data-unit')
+            //document.querySelector("#T3").insertAdjacentHTML('beforeend', `<li>${data.T3}</li>`)
+            //console.log(data.IGN)
+            document.getElementById("liveData").rows[8].cells[2].innerHTML = data.IGN
+            //document.querySelector("#IGN").insertAdjacentHTML('beforeend', `<li>${data.IGN}</li>`)
+            //console.log(data.POWERTIME)
+            document.getElementById("liveData").rows[9].cells[2].innerHTML = data.POWERTIME
+            //document.querySelector("#POWERTIME").insertAdjacentHTML('beforeend', `<li>${data.POWERTIME}</li>`)
+            //console.log(data.HEATTIME)
+            document.getElementById("liveData").rows[10].cells[2].innerHTML = data.HEATTIME
+            //document.querySelector("#DP_TARGET").insertAdjacentHTML('beforeend', `<li>${data.DP_TARGET}</li>`)
+            //console.log(data.SERVICETIME)
+            document.getElementById("liveData").rows[11].cells[2].innerHTML = data.SERVICETIME
+            //document.querySelector("#SERVICETIME").insertAdjacentHTML('beforeend', `<li>${data.SERVICETIME}</li>`)
+            //console.log(data.ONTIME)
+            document.getElementById("liveData").rows[12].cells[2].innerHTML = data.ONTIME
+            //document.querySelector("#ONTIME").insertAdjacentHTML('beforeend', `<li>${data.ONTIME}</li>`)
+            //console.log(data.PQT)
+            document.getElementById("liveData").rows[13].cells[2].innerHTML = data.PQT + document.getElementById("liveData").rows[13].cells[2].getAttribute('data-unit')
+            //document.querySelector("#PQT").insertAdjacentHTML('beforeend', `<li>${data.PQT}</li>`)
+            //console.log(data.FDR)
+            document.getElementById("liveData").rows[14].cells[2].innerHTML = data.FDR
+            //document.querySelector("#FDR").insertAdjacentHTML('beforeend', `<li>${data.FDR}</li>`)
+            //console.log(data.DP_TARGET)
+            document.getElementById("liveData").rows[15].cells[2].innerHTML = data.DP_TARGET
+            //document.querySelector("#DP_TARGET").insertAdjacentHTML('beforeend', `<li>${data.DP_TARGET}</li>`)
+            //console.log(data.DP_PRESS);
+            document.getElementById("liveData").rows[16].cells[2].innerHTML = data.DP_PRESS
+            //document.querySelector("#DP_PRESS").insertAdjacentHTML('beforeend', `<li>${data.DP_PRESS}</li>`)
+            
+
+
+            /*res.forEach(value =>{
+                const markup = `<li>${datavalue}</li>`;    
+                   
+                document.querySelector("#Center").insertAdjacentHTML('beforeend, markup');
+                //console.log(data)
+            })*/
+        })
+        .catch(error => console.log(error));
+        
+        
+        
+        
+        //.then(data => {
+         //   console.log(data.WifiClientName)
+
+
+       // })
+    //.then(response => response.json())
+    //    .then(data => {
+            //console.log(data.sentense)
+            //document.querySelector("#Center").innerText = data.sentense
+        //})
+</script>
+<!--script>
+    //QuerySelector Prefix is added by load function to know into what element queySelector need to look for
+    //var qsp = '#content1 ';
+
+    var statusCode = { 0: 'OFF ❌', 1: 'OFF TIMER ⏲️❌', 2: 'TESTFIRE', 3: 'HEATUP', 4: 'FUELIGN', 5: 'IGNTEST', 6: 'BURNING 🔥', 9: 'COOLFLUID', 10: 'FIRESTOP', 11: 'CLEANFIRE', 12: 'COOL ❄️', 241: 'CHIMNEY ALARM 🚨', 243: 'GRATE ERROR ⚠️', 244: 'NTC2 ALARM 🚨', 245: 'NTC3 ALARM 🚨', 247: 'DOOR ALARM 🚨', 248: 'PRESS ALARM 🚨', 249: 'NTC1 ALARM 🚨', 250: 'TC1 ALARM 🚨', 252: 'GAS ALARM 🚨', 253: 'NOPELLET ALARM 🚨' };
+    function sendCmd(cmd) {
+        if (cmd == 'BKP+HPAR+CSV' | cmd == 'BKP+PARM+CSV') {
+            get("/cgi-bin/sendmsg.lua?cmd=" + cmd,
+                function (response) {
+                    $(qsp + '#cmdResult').innerHTML = '<b><span class="greenfont">Successful command ' + cmd + '</span></b></br>';
+                    $(qsp + '#cmdResult').innerHTML += '<div class="textareaResponse" ><pre>' + response + '</pre></div>';
+                }, function (response) {
+                    var resp = {'INFO': {'MSG': cmd},'DATA': response};
+                    printErrorResult(resp);
+                }
+            );
+            return;
+        }
+        getJSON("/cgi-bin/sendmsg.lua?cmd=" + cmd,
+            function (response) {
+                if (response.SUCCESS === false) {
+                    printErrorResult(response);
+                } else {
+                    if (response.INFO) {
+                        $(qsp + '#cmdResult').innerHTML = '<b><span class="greenfont">Successful command ' + response.INFO.CMD + '</span></b></br>';
+                        $(qsp + '#cmdResult').innerHTML += '<div class="textareaResponse" ><pre>' + JSON.stringify(response.DATA, null, "\t") + '</pre></div>';
+                    } else if (response.PARM) {
+                        $(qsp + '#cmdResult').innerHTML = '<b><span class="greenfont">Successful command ' + cmd + '</span></b></br>';
+                        $(qsp + '#cmdResult').innerHTML += '<div class="textareaResponse" ><pre>' + JSON.stringify(response.PARM, null, "\t") + '</pre></div>';
+                    } else if (response.HPAR) {
+                        $(qsp + '#cmdResult').innerHTML = '<b><span class="greenfont">Successful command ' + cmd + '</span></b></br>';
+                        $(qsp + '#cmdResult').innerHTML += '<div class="textareaResponse" ><pre>' + JSON.stringify(response.HPAR, null, "\t") + '</pre></div>';
+                    }
+                }
+            },
+            function (response) {
+                printErrorResult(response);
+            }
+        );
+    };
+    function printErrorResult(resp) {
+        $(qsp + '#cmdResult').innerHTML = '<b><span class="redfont">Error command ' + resp.INFO.MSG + '</span></b></br>';
+        $(qsp + '#cmdResult').innerHTML += '<div class="textareaResponse" >' + resp.DATA + '</div>';
+    }
+    function parseLiveData(liveData) {
+        if ($(qsp + '#liveData') == undefined) return;
+        for (k in liveData) {
+            kForId = (/[^a-zA-Z]/.test(k[0]) ? 'a' : '') + k; //k[0] is not in a-zA-Z then we need to add 'a'
+            kForId = kForId.replace(/ /g, '_');
+            if ($(qsp + '#' + kForId) != undefined) {
+                $(qsp + '#' + kForId).style.display = 'table-row';
+
+                var existingElement = $(qsp + '#' + kForId + ' .value');
+                switch (k) {
+                    case "STATUS":
+                        $(qsp + '#' + k + ' #ONOFFCMD').value = (liveData[k] != 6 ? 'OFF' : 'ON');
+                        liveData[k] = statusCode[liveData[k]];
+                        break;
+                    case "PWR":
+                        $(qsp + '#PWRDCMD').disabled = false;
+                        $(qsp + '#PWRUCMD').disabled = false;
+                        if (liveData[k] == 1) {
+                            $(qsp + '#PWRDCMD').disabled = true;
+                        } else if (liveData[k] == 5) {
+                            $(qsp + '#PWRUCMD').disabled = true;
+                        }
+                        $(qsp + '#' + k + 'CMD').value = liveData[k];
+                        break;
+                    case "SETP":
+                        $(qsp + '#STPDCMD').disabled = false;
+                        $(qsp + '#STPUCMD').disabled = false;
+                        if (liveData[k] == 5) {
+                            $(qsp + '#STPDCMD').disabled = true;
+                        } else if (liveData[k] == 51) {
+                            $(qsp + '#STPUCMD').disabled = true;
+                        }
+                        $(qsp + '#' + k + 'CMD').value = liveData[k];
+                        break;
+                    case "F2L":
+                        $(qsp + '#F2LDCMD').disabled = false;
+                        $(qsp + '#F2LUCMD').disabled = false;
+                        if (liveData[k] == 0) {
+                            $(qsp + '#F2LDCMD').disabled = true;
+                        } else if (liveData[k] == 7) {
+                            $(qsp + '#F2LUCMD').disabled = true;
+                        }
+                        $(qsp + '#' + k + 'CMD').value = liveData[k];
+                        break;
+                    case "T4":
+                        if (liveData[k] == 0) {
+                            $(qsp + '#T4').style.display = 'none';
+                        }
+                    case "T5":
+                        if (liveData[k] == 0) {
+                            $(qsp + '#T5').style.display = 'none';
+                        }
+                }
+
+                var valueText = liveData[k];
+                if (existingElement.getAttribute('data-unit') != null) {
+                    valueText += ' ' + existingElement.getAttribute('data-unit');
+                }
+                var fontText = "normal";
+                if (existingElement.getAttribute('data-number') == '1') {
+                    if (valueText > parseFloat(existingElement.innerText)) {
+                        valueText += '<a class="redfont">&uarr;</a>';
+                        fontText = "bold";
+                    } else if (valueText < parseFloat(existingElement.innerText)) {
+                        valueText += '<a class="greenfont">&darr;</a>';
+                        fontText = "bold";
+                    }
+                } else {
+                    if (valueText != existingElement.innerText) {
+                        fontText = "bold";
+                    }
+                }
+                existingElement.innerHTML = valueText;
+                existingElement.style.fontWeight = fontText;
+            }
+        }
+        $(qsp + '#sendMsg').style.display = 'block';
+        if ($(qsp + '#lastRefresh') != undefined) {
+            $(qsp + '#lastRefresh').innerText = (new Date()).toLocaleString();
+        }
+    }
+
+    if (!!window.EventSource) {
+        var statusEventSource = new EventSource('/statusEvt' + qsp[8]);
+        statusEventSource.addEventListener('message', function (e) {
+            parseLiveData(JSON.parse(e.data));
+        });
+    }
+
+    $(qsp + '#ONOFFCMD').addEventListener("change", function (evt) {
+        $(qsp + '#STATUS .value').innerText = evt.target.value;
+        sendCmd('CMD+' + evt.target.value);
+    });
+
+    $(qsp + '#PWRCMD').addEventListener("change", function (evt) {
+        $(qsp + '#PWR .value').innerText = evt.target.value;
+        sendCmd('SET+POWR+' + evt.target.value);
+    });
+    $(qsp + '#PWRDCMD').addEventListener("click", function (evt) {
+        $(qsp + '#PWR .value').innerText = parseInt($(qsp + '#PWR .value').innerText) - 1;
+        sendCmd('SET+PWRD');
+    });
+    $(qsp + '#PWRUCMD').addEventListener("click", function (evt) {
+        $(qsp + '#PWR .value').innerText = parseInt($(qsp + '#PWR .value').innerText) + 1;
+        sendCmd('SET+PWRU');
+    });
+
+    $(qsp + '#SETPCMD').addEventListener("change", function (evt) {
+        $(qsp + '#SETP .value').innerText = evt.target.value + ' ' + $(qsp + '#SETP .value').getAttribute('data-unit');
+        sendCmd('SET+SETP+' + evt.target.value);
+    });
+    $(qsp + '#STPDCMD').addEventListener("click", function (evt) {
+        $(qsp + '#SETP .value').innerText = parseInt($(qsp + '#SETP .value').innerText) - 1 + ' ' + $(qsp + '#SETP .value').getAttribute('data-unit');
+        sendCmd('SET+STPD');
+    });
+    $(qsp + '#STPUCMD').addEventListener("click", function (evt) {
+        $(qsp + '#SETP .value').innerText = parseInt($(qsp + '#SETP .value').innerText) + 1+ ' ' + $(qsp + '#SETP .value').getAttribute('data-unit');
+        sendCmd('SET+STPU');
+    });
+    
+    $(qsp + '#F2LCMD').addEventListener("change", function (evt) {
+        $(qsp + '#F2L .value').innerText = evt.target.value;
+        sendCmd('SET+RFAN+' + evt.target.value);
+    });
+    $(qsp + '#F2LDCMD').addEventListener("click", function (evt) {
+        if ($(qsp + '#F2L .value').innerText > 0) 
+            $(qsp + '#F2L .value').innerText = parseInt($(qsp + '#F2L .value').innerText) - 1;
+        sendCmd('SET+FN2D');
+    });
+    $(qsp + '#F2LUCMD').addEventListener("click", function (evt) {
+        if ($(qsp + '#F2L .value').innerText < 7) 
+            $(qsp + '#F2L .value').innerText = parseInt($(qsp + '#F2L .value').innerText) + 1;
+        sendCmd('SET+FN2U');
+    });
+
+    $(qsp + '#DATETIME').addEventListener("change", function (evt) {
+        if (evt.target.value.match(evt.target.pattern)) {
+            $(qsp + '#DATETIMECMD').style.display = '';
+        } else {
+            $(qsp + '#DATETIMECMD').style.display = 'none';
+        }
+    });
+
+    $(qsp + '#DATETIMECMD').addEventListener("click", function (evt) {
+        sendCmd('SET+TIME+'+ $(qsp + '#DATETIME').value.replace('T', '+')); //SET+TIME+2023-12-28+19:42:00
+    });
+
+    $(qsp + '#CUSTOMCMD').addEventListener("change", function (evt) {
+        if (event.target.selectedOptions[0]) {
+            //remove all input fields created earlier
+            var removeInputs = document.querySelectorAll(qsp + '.inputResult');
+            if (removeInputs !== null) {
+                removeInputs.forEach(inputToRemove => {
+                    inputToRemove.remove();
+                });
+            }
+            //remove button Send created earlier
+            var removeButtons = document.querySelectorAll(qsp + '.btnSendMsg');
+            if (removeButtons !== null) {
+                removeButtons.forEach(buttonToRemove => {
+                    buttonToRemove.remove();
+                });
+            }
+            var nbArguments = event.target.selectedOptions[0].getAttribute('arguments');
+            var placeholder = event.target.selectedOptions[0].getAttribute('placeholder');
+            var value = event.target.selectedOptions[0].getAttribute('value');
+            if (nbArguments === '0') {
+                sendCmd(event.target.value);
+            } else {
+                $(qsp + '#cmdResult').innerHTML = ''; // reset field
+                for (var i = 1; i <= nbArguments; i++) {
+                    //add inputs depend on arguments quantity
+                    var placeholderArr = placeholder.split(" ");
+                    var newElement = document.createElement("input");
+                    var patternInput = event.target.selectedOptions[0].getAttribute('pattern'+i);
+                    newElement.setAttribute('placeholder', placeholderArr[i-1]);
+                    newElement.setAttribute('pattern', patternInput);
+                    newElement.setAttribute('required','');
+                    newElement.className = 'inputResult';
+                    newElement.innerText = patternInput;
+                    $(qsp + '#sendMsg').insertBefore(newElement, $(qsp + '#cmdResult'));
+                }
+                //add button Send to all inputs values 
+                var btnElement = document.createElement("button");
+                btnElement.className = 'btnSendMsg pure-button pure-button-primary';
+                btnElement.innerHTML = 'Send';
+                btnElement.onclick = function(evt) {
+                    var inputResults = document.querySelectorAll(qsp + '.inputResult');
+                    var inputValues = [];
+                    inputResults.forEach(function(inputResult) {
+                        inputValues.push(inputResult.value);
+                    });
+                    var joinedValues = inputValues.join('+');
+                    console.log('sendCmd ARG>0 ', value + joinedValues);
+                    sendCmd(value + joinedValues);
+                };
+                document.querySelector('#sendMsg').insertBefore(btnElement, $(qsp + '#cmdResult'));
+            }
+        }
+    });
+    
+</script-->
+

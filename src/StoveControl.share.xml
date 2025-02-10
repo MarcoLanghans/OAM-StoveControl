@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="../../Organization/knxprod-support/knx_project_20/knx-editor.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<KNX xmlns:op="http://github.com/OpenKNX/OpenKNXproducer" xmlns="http://knx.org/xml/project/20" CreatedBy="KNX MT" ToolVersion="5.1.255.16695">
+  <ManufacturerData>
+    <Manufacturer RefId="M-00FA">
+      <ApplicationPrograms>
+        <ApplicationProgram Id="%AID%" ApplicationNumber="200" ApplicationVersion="1" ProgramType="ApplicationProgram" MaskVersion="MV-07B0" Name="SOM" LoadProcedureStyle="MergedProcedure" PeiType="0" DefaultLanguage="de" DynamicTableManagement="false" Linkable="false" MinEtsVersion="4.0">
+          <Static>
+            <ParameterTypes>
+              <ParameterType Id="%AID%_PT-TempOnChange" Name="TempOnChange">
+                <TypeFloat Encoding="IEEE-754 Single" minInclusive="0.1" maxInclusive="3" Increment="0.1" />
+              </ParameterType>
+              <ParameterType Id="%AID%_PT-SendCycleSelection" Name="SendCycleSelection">
+                <TypeRestriction Base="Value" SizeInBit="8">
+                  <Enumeration Text="nicht senden" Value="0" Id="%AID%_PT-SendCycleSelection_EN-0" />
+                  <Enumeration Text="1 Minute" Value="1" Id="%AID%_PT-SendCycleSelection_EN-1" />
+                  <Enumeration Text="2 Minuten" Value="2" Id="%AID%_PT-SendCycleSelection_EN-2" />
+                  <Enumeration Text="3 Minuten" Value="3" Id="%AID%_PT-SendCycleSelection_EN-3" />
+                  <Enumeration Text="4 Minuten" Value="4" Id="%AID%_PT-SendCycleSelection_EN-4" />
+                  <Enumeration Text="5 Minuten" Value="5" Id="%AID%_PT-SendCycleSelection_EN-5" />
+                  <Enumeration Text="10 Minuten" Value="10" Id="%AID%_PT-SendCycleSelection_EN-10" />
+                  <Enumeration Text="15 Minuten" Value="15" Id="%AID%_PT-SendCycleSelection_EN-15" />
+                  <Enumeration Text="20 Minuten" Value="20" Id="%AID%_PT-SendCycleSelection_EN-20" />
+                  <Enumeration Text="30 Minuten" Value="30" Id="%AID%_PT-SendCycleSelection_EN-30" />
+                  <Enumeration Text="40 Minuten" Value="40" Id="%AID%_PT-SendCycleSelection_EN-40" />
+                  <Enumeration Text="50 Minuten" Value="50" Id="%AID%_PT-SendCycleSelection_EN-50" />
+                  <Enumeration Text="60 Minuten" Value="60" Id="%AID%_PT-SendCycleSelection_EN-60" />
+                </TypeRestriction>
+              </ParameterType>
+            </ParameterTypes>
+            <Parameters>
+            <!-- temperature 1 parameters-->
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="1" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00001" Name="Temperature1SendChange" Offset="0" BitOffset="0" ParameterType="%AID%_PT-OnOffYesNo" Text="Senden bei Änderung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00002" Name="Temperature1SendChangeAmount" Offset="1" BitOffset="0" ParameterType="%AID%_PT-TempOnChange" Text="     von mehr als" SuffixText="K" Value="0.5" />
+                <Parameter Id="%AID%_UP-%TT%00003" Name="Temperature1SendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
+              </Union>
+              <!-- temperature 2 parameters-->
+	            <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="3" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00004" Name="Temperature2SendChange" Offset="0" BitOffset="0" ParameterType="%AID%_PT-OnOffYesNo" Text="Senden bei Änderung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00005" Name="Temperature2SendChangeAmount" Offset="1" BitOffset="0" ParameterType="%AID%_PT-TempOnChange" Text="     von mehr als" SuffixText="K" Value="0.5" />
+                <Parameter Id="%AID%_UP-%TT%00006" Name="Temperature2SendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
+	            </Union>
+              <!-- temperature 3 parameters-->
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="5" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00007" Name="Temperature3SendChange" Offset="0" BitOffset="0" ParameterType="%AID%_PT-OnOffYesNo" Text="Senden bei Änderung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00008" Name="Temperature3SendChangeAmount" Offset="1" BitOffset="0" ParameterType="%AID%_PT-TempOnChange" Text="     von mehr als" SuffixText="K" Value="0.5" />
+                <Parameter Id="%AID%_UP-%TT%00009" Name="Temperature3SendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
+              </Union>
+
+              <!-- stove state-->
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="7" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00010" Name="StoveStateSendChange" Offset="0" BitOffset="0" ParameterType="%AID%_PT-OnOffYesNo" Text="Senden bei Änderung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00011" Name="StoveStateSendChangeAmount" Offset="1" BitOffset="0" ParameterType="%AID%_PT-TempOnChange" Text="     von mehr als" SuffixText="K" Value="0.5" />
+                <Parameter Id="%AID%_UP-%TT%00012" Name="StoveStateSendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
+              </Union>
+
+              <!-- setpoint ambiente temperature-->
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="9" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00013" Name="SetpointAmbienteSendChange" Offset="0" BitOffset="0" ParameterType="%AID%_PT-OnOffYesNo" Text="Senden bei Änderung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00014" Name="SetpointAmbienteSendChangeAmount" Offset="1" BitOffset="0" ParameterType="%AID%_PT-TempOnChange" Text="     von mehr als" SuffixText="K" Value="0.5" />
+                <Parameter Id="%AID%_UP-%TT%00015" Name="SetpointAmbienteSendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
+              </Union>
+
+              <!-- stove level-->
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="11" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00016" Name="StoveLevelSendChange" Offset="0" BitOffset="0" ParameterType="%AID%_PT-OnOffYesNo" Text="Senden bei Änderung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00017" Name="StoveLevelSendChangeAmount" Offset="1" BitOffset="0" ParameterType="%AID%_PT-TempOnChange" Text="     von mehr als" SuffixText="K" Value="0.5" />
+                <Parameter Id="%AID%_UP-%TT%00018" Name="StoveLevelSendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
+              </Union>
+
+              <!-- Maintenance Timer-->
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="13" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00019" Name="MaintenanceTimerSendChange" Offset="0" BitOffset="0" ParameterType="%AID%_PT-OnOffYesNo" Text="Senden bei Änderung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00020" Name="MaintenanceTimerSendChangeAmount" Offset="1" BitOffset="0" ParameterType="%AID%_PT-TempOnChange" Text="     von mehr als" SuffixText="K" Value="0.5" />
+                <Parameter Id="%AID%_UP-%TT%00021" Name="MaintenanceTimerSendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
+              </Union>
+
+              <!-- pellet consumption -->
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="15" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00022" Name="PelletConsumptionSendChange" Offset="0" BitOffset="0" ParameterType="%AID%_PT-OnOffYesNo" Text="Senden bei Änderung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00023" Name="PelletConsumptionSendChangeAmount" Offset="1" BitOffset="0" ParameterType="%AID%_PT-TempOnChange" Text="     von mehr als" SuffixText="K" Value="0.5" />
+                <Parameter Id="%AID%_UP-%TT%00024" Name="PelletConsumptionSendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
+              </Union>
+
+            </Parameters>
+            <ParameterRefs>  
+              <!--Temperature 1-->
+              <ParameterRef Id="%AID%_UP-%TT%00001_R-%TT%0000101" RefId="%AID%_UP-%TT%00001"/>
+              <ParameterRef Id="%AID%_UP-%TT%00002_R-%TT%0000201" RefId="%AID%_UP-%TT%00002"/>
+              <ParameterRef Id="%AID%_UP-%TT%00003_R-%TT%0000301" RefId="%AID%_UP-%TT%00003"/>
+
+              <!--Temperature 2-->
+              <ParameterRef Id="%AID%_UP-%TT%00004_R-%TT%0000401" RefId="%AID%_UP-%TT%00004"/>
+              <ParameterRef Id="%AID%_UP-%TT%00005_R-%TT%0000501" RefId="%AID%_UP-%TT%00005"/>
+              <ParameterRef Id="%AID%_UP-%TT%00006_R-%TT%0000601" RefId="%AID%_UP-%TT%00006"/>
+
+              <!--Temperature 3-->
+              <ParameterRef Id="%AID%_UP-%TT%00007_R-%TT%0000701" RefId="%AID%_UP-%TT%00007"/>
+              <ParameterRef Id="%AID%_UP-%TT%00008_R-%TT%0000801" RefId="%AID%_UP-%TT%00008"/>
+              <ParameterRef Id="%AID%_UP-%TT%00009_R-%TT%0000901" RefId="%AID%_UP-%TT%00009"/>
+
+              <!-- stove state-->
+              <ParameterRef Id="%AID%_UP-%TT%00010_R-%TT%0001001" RefId="%AID%_UP-%TT%00010"/>
+              <ParameterRef Id="%AID%_UP-%TT%00011_R-%TT%0001101" RefId="%AID%_UP-%TT%00011"/>
+              <ParameterRef Id="%AID%_UP-%TT%00012_R-%TT%0001201" RefId="%AID%_UP-%TT%00012"/>
+
+              <!-- setpoint ambiente temperature-->
+              <ParameterRef Id="%AID%_UP-%TT%00013_R-%TT%0001301" RefId="%AID%_UP-%TT%00013"/>
+              <ParameterRef Id="%AID%_UP-%TT%00014_R-%TT%0001401" RefId="%AID%_UP-%TT%00014"/>
+              <ParameterRef Id="%AID%_UP-%TT%00015_R-%TT%0001501" RefId="%AID%_UP-%TT%00015"/>
+
+              <!-- stove level-->
+              <ParameterRef Id="%AID%_UP-%TT%00016_R-%TT%0001601" RefId="%AID%_UP-%TT%00016"/>
+              <ParameterRef Id="%AID%_UP-%TT%00017_R-%TT%0001701" RefId="%AID%_UP-%TT%00017"/>
+              <ParameterRef Id="%AID%_UP-%TT%00018_R-%TT%0001801" RefId="%AID%_UP-%TT%00018"/>
+
+              <!-- pellet consumption -->
+              <ParameterRef Id="%AID%_UP-%TT%00019_R-%TT%0001901" RefId="%AID%_UP-%TT%00019"/>
+              <ParameterRef Id="%AID%_UP-%TT%00020_R-%TT%0002001" RefId="%AID%_UP-%TT%00020"/>
+              <ParameterRef Id="%AID%_UP-%TT%00021_R-%TT%0002101" RefId="%AID%_UP-%TT%00021"/>
+              
+              <!-- Maintenance Timer-->
+              <ParameterRef Id="%AID%_UP-%TT%00022_R-%TT%0002201" RefId="%AID%_UP-%TT%00022"/>
+              <ParameterRef Id="%AID%_UP-%TT%00023_R-%TT%0002301" RefId="%AID%_UP-%TT%00023"/>
+              <ParameterRef Id="%AID%_UP-%TT%00024_R-%TT%0002401" RefId="%AID%_UP-%TT%00024"/>
+
+            </ParameterRefs>
+            <ComObjectTable>
+              <ComObject Id="%AID%_O-%TT%00001" Name="StoveState" Text="Ofen Status" Number="1" FunctionText="Status" ObjectSize="1 Bit" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-11" />
+              <ComObject Id="%AID%_O-%TT%00002" Name="Stove" Text="Ofen" Number="2" FunctionText="Schalten Ein/Aus" ObjectSize="1 Bit" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-1" />
+              <ComObject Id="%AID%_O-%TT%00003" Name="AmbientTemperature" Text="Umgebungstemperatur" Number="3" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1"/>
+              <ComObject Id="%AID%_O-%TT%00004" Name="PelletsTemperature" Text="Pellet Temperatur" Number="4" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
+              <ComObject Id="%AID%_O-%TT%00005" Name="FumesTemperatur" Text="Rauchtemperatur" Number="5" FunctionText="Messwert in °C" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
+              <ComObject Id="%AID%_O-%TT%00006" Name="CurrentSetpointAmbientTemperature" Text="Aktueller Sollwert Umgebungstemperatur " Number="6" FunctionText="Messwert" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
+              <ComObject Id="%AID%_O-%TT%00007" Name="SetpointAmbientTemperature" Text="Neuer Sollwert Umgebungstemperatur" Number="7" FunctionText="Sollwert senden" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
+              <ComObject Id="%AID%_O-%TT%00008" Name="ServiceTime" Text="Wartungstimer" Number="8" FunctionText="Messwert" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-7-6" />
+              <ComObject Id="%AID%_O-%TT%00009" Name="CurrentPowerLevel" Text="Aktuelle Leistungstufe" Number="9" FunctionText="Stufen 1-5" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPT-5" />       
+              <ComObject Id="%AID%_O-%TT%00010" Name="SetPointPowerLevel" Text="Neue Leistungstufe" Number="10" FunctionText="Sollwert senden" ObjectSize="1 Byte" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPT-5" />       
+              <ComObject Id="%AID%_O-%TT%00011" Name="PelletsUsed" Text="Brennstoffverbrauch" Number="11" FunctionText="Messwert in kg" ObjectSize="4 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-14-51" />       
+              
+            </ComObjectTable>
+            <ComObjectRefs>
+              <ComObjectRef Id="%AID%_O-%TT%00001_R-%TT%0000101" RefId="%AID%_O-%TT%00001"/>
+              <ComObjectRef Id="%AID%_O-%TT%00002_R-%TT%0000201" RefId="%AID%_O-%TT%00002"/>
+              <ComObjectRef Id="%AID%_O-%TT%00003_R-%TT%0000301" RefId="%AID%_O-%TT%00003"/>
+              <ComObjectRef Id="%AID%_O-%TT%00004_R-%TT%0000401" RefId="%AID%_O-%TT%00004"/>
+              <ComObjectRef Id="%AID%_O-%TT%00005_R-%TT%0000501" RefId="%AID%_O-%TT%00005"/>
+              <ComObjectRef Id="%AID%_O-%TT%00006_R-%TT%0000601" RefId="%AID%_O-%TT%00006"/>
+              <ComObjectRef Id="%AID%_O-%TT%00007_R-%TT%0000701" RefId="%AID%_O-%TT%00007"/>
+              <ComObjectRef Id="%AID%_O-%TT%00008_R-%TT%0000801" RefId="%AID%_O-%TT%00008"/>
+              <ComObjectRef Id="%AID%_O-%TT%00009_R-%TT%0000901" RefId="%AID%_O-%TT%00009"/>
+              <ComObjectRef Id="%AID%_O-%TT%00010_R-%TT%0001001" RefId="%AID%_O-%TT%00010"/>
+              <ComObjectRef Id="%AID%_O-%TT%00011_R-%TT%0001101" RefId="%AID%_O-%TT%00011"/>
+
+            </ComObjectRefs>
+          </Static>
+          <Dynamic>   
+            <Channel Name="MainChannel" Text="Pelletofen" Number="%TT%" Id="%AID%_CH-%TT%" Icon="fire">
+              <ParameterBlock Id="%AID%_PB-nnn" Name="HiddenOptions" Text="" Inline="true">
+              </ParameterBlock>        
+              <!--ParameterBlock Id="%AID%_PB-nnn" Name="Documentation" Text="Dokumentation" Icon="information-outline" HelpContext="DMY-Doc">
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Dokumentation" UIHint="Headline" />
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="Unten steht eine Dokumentation in Hilfefenster" />
+              </ParameterBlock-->
+              <ParameterBlock Id="%AID%_PB-nnn" Name="Common" Text="Allgemein" Icon="cog">
+                <ParameterSeparator Id="%AID%_PS-50" Text="Status" UIHint="Headline"/>
+                <ParameterRefRef RefId="%AID%_UP-%TT%00012_R-%TT%0001201"/>
+                <!--ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" /--> 
+                <ParameterSeparator Id="%AID%_PS-50" Text="Sollwert Umgebungstemperatur" UIHint="Headline"/>
+                <ParameterRefRef RefId="%AID%_UP-%TT%00015_R-%TT%0001501"/>
+                <!--ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" /--> 
+                <ParameterSeparator Id="%AID%_PS-50" Text="Aktuelle Leistungsstufe" UIHint="Headline"/>
+                <ParameterRefRef RefId="%AID%_UP-%TT%00018_R-%TT%0001801"/>
+                <!--ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" /--> 
+                <ParameterSeparator Id="%AID%_PS-50" Text="Brennstofverbrauch" UIHint="Headline"/>
+                <ParameterRefRef RefId="%AID%_UP-%TT%00021_R-%TT%0002101"/>
+                <!--ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" /--> 
+                <ParameterSeparator Id="%AID%_PS-50" Text="Wartungstimer" UIHint="Headline"/> 
+                <ParameterRefRef RefId="%AID%_UP-%TT%00024_R-%TT%0002401"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00001_R-%TT%0000101"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00002_R-%TT%0000201"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00007_R-%TT%0000701"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00008_R-%TT%0000801"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00009_R-%TT%0000901"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00010_R-%TT%0001001"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00011_R-%TT%0001101"/>
+              </ParameterBlock>  
+              <ParameterBlock Id="%AID%_PB-nnn" Name="Temperatures" Text="Temperaturen" Icon="thermometer">
+                <ParameterSeparator Id="%AID%_PS-50" Text="Umgebungstemperatur" UIHint="Headline"/>
+                <ParameterRefRef RefId="%AID%_UP-%TT%00001_R-%TT%0000101"/>
+                  <choose ParamRefId="%AID%_UP-%TT%00001_R-%TT%0000101">
+                    <when test="1">
+                      <ParameterRefRef RefId="%AID%_UP-%TT%00002_R-%TT%0000201"/>
+                    </when>
+                  </choose>
+                <ParameterRefRef RefId="%AID%_UP-%TT%00003_R-%TT%0000301"/>
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" /> 
+                <ParameterSeparator Id="%AID%_PS-50" Text="Pelletstemperatur" UIHint="Headline"/>
+                <ParameterRefRef RefId="%AID%_UP-%TT%00004_R-%TT%0000401"/>
+                  <choose ParamRefId="%AID%_UP-%TT%00004_R-%TT%0000401">
+                    <when test="1">
+                      <ParameterRefRef RefId="%AID%_UP-%TT%00005_R-%TT%0000501"/>
+                    </when>
+                  </choose>
+                <ParameterRefRef RefId="%AID%_UP-%TT%00006_R-%TT%0000601"/>
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" /> 
+                <ParameterSeparator Id="%AID%_PS-50" Text="Rauchtemperatur" UIHint="Headline"/>
+                <ParameterRefRef RefId="%AID%_UP-%TT%00007_R-%TT%0000701"/>
+                  <choose ParamRefId="%AID%_UP-%TT%00007_R-%TT%0000701">
+                    <when test="1">
+                      <ParameterRefRef RefId="%AID%_UP-%TT%00008_R-%TT%0000801"/>
+                    </when>
+                  </choose>
+                <ParameterRefRef RefId="%AID%_UP-%TT%00009_R-%TT%0000901"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00003_R-%TT%0000301"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00004_R-%TT%0000401"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00005_R-%TT%0000501"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00006_R-%TT%0000601"/>
+              </ParameterBlock>
+              <!--ParameterBlock Id="%AID%_PB-nnn" Name="I2C" Text="Externer Sensor (I2C)" Icon="location-enter">
+                <ParameterRefRef RefId="%AID%_UP-%TT%00010_R-%TT%0001001"/>
+              </ParameterBlock-->
+            </Channel>
+          </Dynamic>
+        </ApplicationProgram>
+      </ApplicationPrograms>
+      <Baggages>
+        <Baggage TargetPath="" Name="Help_de.zip" Id="%FILE-HELP-de%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage>
+        <Baggage TargetPath="" Name="Icons.zip" Id="%FILE-ICONS%">
+          <FileInfo TimeInfo="%DATETIME%" />
+        </Baggage>
+      </Baggages>
+    </Manufacturer>
+  </ManufacturerData>
+</KNX>

@@ -1,0 +1,111 @@
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #Wifi tr .id { text-align: right; display: none;}
+        #Wifi tr .name { font-style: italic; }
+        #Wifi td {width:150px;}
+        #Wifi { width: 100%; border-collapse: collapse;}
+        .Center {display:flex; justify-content: center;} 
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!--Top menu -->
+        
+        <div class="sidebar">
+           <!--profile image & text-->
+           <div class="profile">
+            <img src="fire.png" alt="profile_picture">
+            <h3>Stove Control</h3>
+            <p></p>
+        </div> 
+           <!--menu item-->
+            <ul>
+                <li>
+                    <a href="#" class="active">
+                        <span class="icon"><i class="fas fa-home"></i></span>
+                        <span class="item">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="state.html"> 
+                    <span class="icon"><i class="fas fa-desktop"></i></span>
+                    <span class="item">Status</span>
+                </a>
+                </li>
+                <!--li>
+                    <a href="cog.html">
+                        <span class="icon"><i class="fas fa-cog"></i></span>
+                        <span class="item">Settings</span>
+                    </a>
+                </li-->
+            </ul>
+        </div>
+        <div class="Center">
+            <h2 class="content-subhead">WiFi State<span id="l"></span>
+            <table id="Wifi" class="pure-form">
+                <thead>
+                    <tr>
+                    </tr>
+                </thead>    
+                <tbody>
+                    <tr id="HOSTNAME">
+                        <td class="id">HOSTNAME </td>
+                        <td class="name">Hostname </td>
+                        <td class="value"></td>
+                    </tr>
+                    <tr id="IP">
+                        <td class="id">IP </td>
+                        <td class="name">IP address </td>
+                        <td class="value"></td>
+                    </tr>
+                    <tr id="SUBNET">
+                        <td class="id">SUBNET </td>
+                        <td class="name">Subnet </td>
+                        <td class="value"></td>
+                    </tr>
+                    <tr id="DNS">
+                        <td class="id">DNS </td>
+                        <td class="name">DNS Server </td>
+                        <td class="value"></td>
+                    </tr>
+                    <tr id="GW">
+                        <td class="id">GW </td>
+                        <td class="name">Gateway </td>
+                        <td class="value"></td>
+                    </tr>
+                    <tr id="SSID">
+                        <td class="id">SSID </td>
+                        <td class="name">SSID </td>
+                        <td class="value"></td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+  <script>
+    fetch('wifi.json')
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+            document.getElementById("Wifi").rows[1].cells[2].innerHTML = data.WifiClientName
+            document.getElementById("Wifi").rows[2].cells[2].innerHTML = data.WifiLocalIP
+            document.getElementById("Wifi").rows[3].cells[2].innerHTML = data.WifiSubnet
+            document.getElementById("Wifi").rows[4].cells[2].innerHTML = data.WifiDNS
+            document.getElementById("Wifi").rows[5].cells[2].innerHTML = data.WifiGW
+            document.getElementById("Wifi").rows[6].cells[2].innerHTML = data.WifiSSID
+            
+        })
+        .catch(error => console.log(error));
+        
+
+  </script>
+</body>
+</html>
+
