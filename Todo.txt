@@ -4,3 +4,5 @@ SetPointTemp    0 - 30
 Pellet consumed kg
 Room Temperature 0-30
 Status      Warm/Cool
+
+initial github
