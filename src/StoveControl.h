@@ -8,7 +8,7 @@
 #define PQTKODPT          Dpt(14,51)
 #define SERVICETIMEKODPT  Dpt(7,6)
 #define PWRKODPT          Dpt(5,0)
-#define WifiRSSIDPT       Dpt(6,1)
+//#define WifiRSSIDPT       Dpt(6,1)
 
 
 //#define HumKODPT        (SEN_SensorHumiditySend==5?Dpt(5,1):Dpt(9,7))
