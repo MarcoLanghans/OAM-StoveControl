@@ -1,22 +1,6 @@
 #pragma once
 #include "OpenKNX.h"
 
-
-
-#define TempKODPT         Dpt(9,1)
-#define StoveStateKODPT   Dpt(1,11)
-#define PQTKODPT          Dpt(14,51)
-#define SERVICETIMEKODPT  Dpt(7,6)
-#define PWRKODPT          Dpt(5,0)
-//#define WifiRSSIDPT       Dpt(6,1)
-
-
-//#define HumKODPT        (SEN_SensorHumiditySend==5?Dpt(5,1):Dpt(9,7))
-//#define AbsHumKODPT     Dpt(9,29)
-//#define DewPointKODPT   Dpt(9,1)
-//#define PressKODPT      Dpt(9,6)
-
-
 class StoveControl : public OpenKNX::Module
 {
   private:
@@ -37,7 +21,7 @@ class StoveControl : public OpenKNX::Module
     uint16_t STATUS;    // Stove On/OFF
     uint16_t LSTATUS;   
     uint16_t FSTATUS;
-    byte PWR;
+    byte PWR = 5;
     float FDR;
     float SETPReturn;
     uint16_t IGN;
