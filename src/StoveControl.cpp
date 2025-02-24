@@ -90,9 +90,7 @@ void StoveControl::setup1(bool configured)
 
 void StoveControl::loop1(bool configured){
   if(configured){
-    //loopStove();
-    //NewSetpoint();
-    //toggleStove(); 
+    loopStove();
   } 
 }
 
@@ -104,8 +102,12 @@ void StoveControl::loop(bool configured)
 
   
   if(configured){
-    //loopStoveTemperatures(T1,T2,T3);
-    loopStoveValues(STATUS, SERVICETIMEh, SERVICETIMEm, PWR, setPoint, PQT);
+    loopStoveTemperatures(T1,T2,T3);
+    loopStoveValues(STATUS, SERVICETIMEh, SERVICETIMEm, PWR, setPoint, PQT, DP_PRESS, IGN);
+    toggleStove(); 
+    NewSetpoint();
+    NewPWR();
+    
   }
 }
 
@@ -149,8 +151,8 @@ void StoveControl::loopStove(){
       Serial.println("---------");
 
       logDebugP("PQT=%d",PQT);
-      logDebugP("DP_TARGET=%.2f",DP_TARGET);
-      logDebugP("DP_PRESS=%.2f",DP_PRESS);
+      logDebugP("DP_TARGET=%d",DP_TARGET);
+      logDebugP("DP_PRESS=%d",DP_PRESS);
       logDebugP("IGN=%d",IGN);   // IGN --> 389
       Serial.println("ServiceTime"); 
       Serial.println(SERVICETIMEm);   // 20 Minuten  
@@ -283,11 +285,11 @@ void StoveControl::loopStoveTemperatures(float T1,float T2 ,float T3){
   }
 }
 
-void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint16_t SERVICETIMEm, byte PWR, float setPoint, uint16_t PQT){
+void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint16_t SERVICETIMEm, byte PWR, float setPoint, uint16_t PQT, uint16_t DP_PRESS, uint16_t IGN){
 
   // State
   if(!isnan(STATUS)){
-    uint8_t send_cycleStoveState = 1;
+    uint8_t send_cycleStoveState = ParamSEN_StoveStateSendCycle;
     uint32_t send_millisStoveState = send_cycleStoveState * 60000; 
     bool sendnowSToveState = false;
     uint16_t _STATUS = 0;
@@ -308,14 +310,13 @@ void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint1
     else{
       KoSEN_StoveState.valueNoSend(_STATUS, DPT_State);}
   }
-
   
   // ServiceTime
   // Umrechnung auf Minuten
   SERVICETIME = SERVICETIMEh + SERVICETIMEm; 
   if(!isnan(SERVICETIME)){
 
-    uint8_t send_cycleServiceTime = 1;
+    uint8_t send_cycleServiceTime = ParamSEN_MaintenanceTimerSendCycle;
     uint32_t send_millisServiceTime = send_cycleServiceTime * 60000; 
     bool sendnowServiceTime = false;
 
@@ -337,7 +338,7 @@ void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint1
   // Pellets used
   if(!isnan(PQT)){
 
-    uint8_t send_cyclePQT = 1;
+    uint8_t send_cyclePQT = ParamSEN_PelletConsumptionSendCycle;
     uint32_t send_millisPQT = send_cyclePQT * 60000; 
     bool sendnowPQT = false;
 
@@ -359,7 +360,7 @@ void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint1
   // current Setpoint
   if(!isnan(setPoint)){
 
-    uint8_t send_cycleSetpoint = 1;
+    uint8_t send_cycleSetpoint = ParamSEN_SetpointAmbienteSendCycle;
     uint32_t send_millisSetpoint = send_cycleSetpoint * 60000; 
     bool sendnowSetPoint = false;
 
@@ -381,7 +382,7 @@ void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint1
   // current Powerlevel
   if(!isnan(PWR)){
 
-    uint8_t send_cyclePWR = 1;
+    uint8_t send_cyclePWR = SEN_PelletConsumptionSendCycle;
     uint32_t send_millisPWR = send_cyclePWR * 60000; 
     bool sendnowPWR = false;
 
@@ -399,6 +400,51 @@ void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint1
     }
     else{KoSEN_CurrentPowerLevel.valueNoSend(PWR, DPT_DecimalFactor);}
   }
+
+  // pressure
+  if(!isnan(DP_PRESS)){
+
+    uint8_t send_cycleDP = ParamSEN_PressureSendCycle;
+    uint32_t send_millisDP = send_cycleDP * 60000; 
+    bool sendnowDP = false;
+  
+    if(send_cycleDP){
+      sendnowDP = millis() - _DP_last_send_millis > send_millisDP || _DP_last_send_millis == 0;
+    }
+    
+    if(sendnowDP){
+      if(_DP_last_send_value != DP_PRESS){    
+        KoSEN_Pressure.value(DP_PRESS, DPT_Value_Pres);
+        logDebugP("Send pressure: %d", DP_PRESS );
+        _DP_last_send_millis = millis();
+        _DP_last_send_value = DP_PRESS;
+      }
+    }
+    else{KoSEN_Pressure.valueNoSend(DP_PRESS, DPT_Value_Pres);}
+    }
+
+  // ignitions 
+  if(!isnan(IGN)){
+
+    uint8_t send_cycleIGN = ParamSEN_IgnitionsSendCycle;
+    uint32_t send_millisIGN = send_cycleIGN * 60000; 
+    bool sendnowIGN = false;
+  
+    if(send_cycleIGN){
+      sendnowIGN = millis() - _IGN_last_send_millis > send_millisIGN || _IGN_last_send_millis == 0;
+    }
+    
+    if(sendnowIGN){
+      if(_IGN_last_send_value != IGN){    
+        KoSEN_Ignitions.value(IGN, DPT_DecimalFactor);
+        logDebugP("Send ignitions: %d", IGN );
+        _IGN_last_send_millis = millis();
+        _IGN_last_send_value = IGN;
+      }
+    }
+    else{KoSEN_Ignitions.valueNoSend(IGN, DPT_DecimalFactor);}
+    }
+
 }
 
 void StoveControl::toggleStove( ){
@@ -406,6 +452,10 @@ void StoveControl::toggleStove( ){
   StovePower = KoSEN_Stove.value(DPT_Switch);
   //logDebugP("Current Stove Power: %f", StovePower );
   if(_StovePower_last_send_value != StovePower){
+      // STATUS = 0 stove is off
+      // STATUS = 3 or 4 stove is heating up
+      // STATUS = 6 stove is on
+      // STATUS = 10 stove is in shutdown process
     if(StovePower == 1 && STATUS == 0){       
       #ifdef Serial_Debug
       logDebugP("-----------------");
@@ -414,7 +464,7 @@ void StoveControl::toggleStove( ){
       #endif
       myPala.switchOn(&STATUS, &LSTATUS, &FSTATUS);
     }
-    if(StovePower == 0 && STATUS > 0){
+    if(StovePower == 0 && STATUS == 6){
       #ifdef Serial_Debug
       logDebugP("-----------------");
       logDebugP("Power off Stove");
@@ -431,7 +481,7 @@ void StoveControl::NewSetpoint( ){
   float NewSetPoint = KoSEN_SetpointAmbientTemperature.value(DPT_Value_Temp);
 
   if(!isnan(NewSetPoint)){
-    if(_StovePower_last_send_value != NewSetPoint){
+    if(_NewStoveSetpoint_last_send_value != NewSetPoint){
       if(NewSetPoint > setPoint || NewSetPoint < setPoint){
         #ifdef Serial_Debug
           logDebugP("New SetpointNew Diff: %f", NewSetPoint);
@@ -445,6 +495,25 @@ void StoveControl::NewSetpoint( ){
 }
 
 void StoveControl::NewPWR(){
+  
+  uint16_t NewPowerlevel = KoSEN_SetPointPowerLevel.value(DPT_DecimalFactor);
+
+  if(NewPowerlevel > 5){NewPowerlevel = 5;}
+
+  if(!isnan(NewPowerlevel)){
+    if(_NewPowerlevel_last_send_value != NewPowerlevel){
+      if(NewPowerlevel > PWR || NewPowerlevel < PWR){
+        #ifdef Serial_Debug
+          logDebugP("New powerlevel : %d", NewPowerlevel);
+        #endif
+        // Set new powerlevel
+        myPala.setPower(NewPowerlevel);
+        
+      }
+      _NewPowerlevel_last_send_value = NewPowerlevel;
+    }
+  }
+  
   //no yet implemented  
   //myPala.setPower()
   //setPower(byte powerLevel, byte *PWRReturn, bool *isF2LReturnValid, uint16_t *F2LReturn, uint16_t (*FANLMINMAXReturn)[6]

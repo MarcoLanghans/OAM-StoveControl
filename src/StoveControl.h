@@ -5,7 +5,7 @@ class StoveControl : public OpenKNX::Module
 {
   private:
     void loopStoveTemperatures(float T1,float T2 ,float T3);
-    void loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint16_t SERVICETIMEm, byte PWR, float setPoint, uint16_t PQT);
+    void loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint16_t SERVICETIMEm, byte PWR, float setPoint, uint16_t PQT, uint16_t DP_PRESS, uint16_t IGN);
     void toggleStove();
     void NewSetpoint();
     void NewPWR();
@@ -21,7 +21,7 @@ class StoveControl : public OpenKNX::Module
     uint16_t STATUS;    // Stove On/OFF
     uint16_t LSTATUS;   
     uint16_t FSTATUS;
-    byte PWR = 5;
+    byte PWR;
     float FDR;
     float SETPReturn;
     uint16_t IGN;
@@ -73,6 +73,12 @@ class StoveControl : public OpenKNX::Module
     uint32_t _PQT_last_send_millis = 0;
     float _PQT_last_send_value = 0;
 
+    uint32_t _DP_last_send_millis = 0;
+    float _DP_last_send_value = 0;
+
+    uint32_t _IGN_last_send_millis = 0;
+    float _IGN_last_send_value = 0;
+
     uint32_t _ServiceTime_last_send_millis = 0;
     float _ServiceTime_last_send_value = 0;
 
@@ -85,6 +91,7 @@ class StoveControl : public OpenKNX::Module
     bool StovePower = false;
 
     float _NewStoveSetpoint_last_send_value = 0;
+    uint16_t _NewPowerlevel_last_send_value = 0;
 
    
   public:

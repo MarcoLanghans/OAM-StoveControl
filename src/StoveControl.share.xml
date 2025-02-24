@@ -91,6 +91,22 @@
                 <Parameter Id="%AID%_UP-%TT%00024" Name="PelletConsumptionSendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
               </Union>
 
+              <!-- ignitions -->
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="17" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00025" Name="IgnitionsSendChange" Offset="0" BitOffset="0" ParameterType="%AID%_PT-OnOffYesNo" Text="Senden bei Änderung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00026" Name="IgnitionsSendChangeAmount" Offset="1" BitOffset="0" ParameterType="%AID%_PT-TempOnChange" Text="     von mehr als" SuffixText="K" Value="0.5" />
+                <Parameter Id="%AID%_UP-%TT%00027" Name="IgnitionsSendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
+              </Union>
+
+              <!-- pressure -->
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="19" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00028" Name="PressureSendChange" Offset="0" BitOffset="0" ParameterType="%AID%_PT-OnOffYesNo" Text="Senden bei Änderung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00029" Name="PressureSendChangeAmount" Offset="1" BitOffset="0" ParameterType="%AID%_PT-TempOnChange" Text="     von mehr als" SuffixText="K" Value="0.5" />
+                <Parameter Id="%AID%_UP-%TT%00030" Name="PressureSendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
+              </Union>
+
             </Parameters>
             <ParameterRefs>  
               <!--Temperature 1-->
@@ -133,6 +149,16 @@
               <ParameterRef Id="%AID%_UP-%TT%00023_R-%TT%0002301" RefId="%AID%_UP-%TT%00023"/>
               <ParameterRef Id="%AID%_UP-%TT%00024_R-%TT%0002401" RefId="%AID%_UP-%TT%00024"/>
 
+              <!-- Ignitions Timer-->
+              <ParameterRef Id="%AID%_UP-%TT%00025_R-%TT%0002501" RefId="%AID%_UP-%TT%00025"/>
+              <ParameterRef Id="%AID%_UP-%TT%00026_R-%TT%0002601" RefId="%AID%_UP-%TT%00026"/>
+              <ParameterRef Id="%AID%_UP-%TT%00027_R-%TT%0002701" RefId="%AID%_UP-%TT%00027"/>
+
+              <!-- Pressure Timer-->
+              <ParameterRef Id="%AID%_UP-%TT%00028_R-%TT%0002801" RefId="%AID%_UP-%TT%00028"/>
+              <ParameterRef Id="%AID%_UP-%TT%00029_R-%TT%0002901" RefId="%AID%_UP-%TT%00029"/>
+              <ParameterRef Id="%AID%_UP-%TT%00030_R-%TT%0003001" RefId="%AID%_UP-%TT%00030"/>
+
             </ParameterRefs>
             <ComObjectTable>
               <ComObject Id="%AID%_O-%TT%00001" Name="StoveState" Text="Ofen Status" Number="1" FunctionText="Status" ObjectSize="1 Bit" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-1-11" />
@@ -143,10 +169,13 @@
               <ComObject Id="%AID%_O-%TT%00006" Name="CurrentSetpointAmbientTemperature" Text="Aktueller Sollwert Umgebungstemperatur " Number="6" FunctionText="Messwert" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
               <ComObject Id="%AID%_O-%TT%00007" Name="SetpointAmbientTemperature" Text="Neuer Sollwert Umgebungstemperatur" Number="7" FunctionText="Sollwert senden" ObjectSize="2 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-1" />
               <ComObject Id="%AID%_O-%TT%00008" Name="ServiceTime" Text="Wartungstimer" Number="8" FunctionText="Messwert" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-7-6" />
-              <ComObject Id="%AID%_O-%TT%00009" Name="CurrentPowerLevel" Text="Aktuelle Leistungstufe" Number="9" FunctionText="Stufen 1-5" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPT-5" />       
-              <ComObject Id="%AID%_O-%TT%00010" Name="SetPointPowerLevel" Text="Neue Leistungstufe" Number="10" FunctionText="Sollwert senden" ObjectSize="1 Byte" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPT-5" />       
+              <ComObject Id="%AID%_O-%TT%00009" Name="CurrentPowerLevel" Text="Aktuelle Leistungstufe" Number="9" FunctionText="Stufen 1-5" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />       
+              <ComObject Id="%AID%_O-%TT%00010" Name="SetPointPowerLevel" Text="Neue Leistungstufe" Number="10" FunctionText="Sollwert senden" ObjectSize="1 Byte" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />       
               <ComObject Id="%AID%_O-%TT%00011" Name="PelletsUsed" Text="Brennstoffverbrauch" Number="11" FunctionText="Messwert in kg" ObjectSize="4 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-14-51" />       
+              <ComObject Id="%AID%_O-%TT%00012" Name="Ignitions" Text="Zündungen" Number="12" FunctionText="Messwert" ObjectSize="1 Byte" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-5-5" />       
+              <ComObject Id="%AID%_O-%TT%00013" Name="Pressure" Text="Differenzdruck" Number="13" FunctionText="Messwert in mPa" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6"/>
               
+
             </ComObjectTable>
             <ComObjectRefs>
               <ComObjectRef Id="%AID%_O-%TT%00001_R-%TT%0000101" RefId="%AID%_O-%TT%00001"/>
@@ -160,7 +189,8 @@
               <ComObjectRef Id="%AID%_O-%TT%00009_R-%TT%0000901" RefId="%AID%_O-%TT%00009"/>
               <ComObjectRef Id="%AID%_O-%TT%00010_R-%TT%0001001" RefId="%AID%_O-%TT%00010"/>
               <ComObjectRef Id="%AID%_O-%TT%00011_R-%TT%0001101" RefId="%AID%_O-%TT%00011"/>
-
+              <ComObjectRef Id="%AID%_O-%TT%00012_R-%TT%0001201" RefId="%AID%_O-%TT%00012"/>
+              <ComObjectRef Id="%AID%_O-%TT%00013_R-%TT%0001301" RefId="%AID%_O-%TT%00013"/>
             </ComObjectRefs>
           </Static>
           <Dynamic>   
@@ -186,6 +216,10 @@
                 <!--ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" /--> 
                 <ParameterSeparator Id="%AID%_PS-50" Text="Wartungstimer" UIHint="Headline"/> 
                 <ParameterRefRef RefId="%AID%_UP-%TT%00024_R-%TT%0002401"/>
+                <ParameterSeparator Id="%AID%_PS-50" Text="Zündungen" UIHint="Headline"/> 
+                <ParameterRefRef RefId="%AID%_UP-%TT%00027_R-%TT%0002701"/>
+                <ParameterSeparator Id="%AID%_PS-50" Text="Differenzdruck" UIHint="Headline"/> 
+                <ParameterRefRef RefId="%AID%_UP-%TT%00030_R-%TT%0003001"/>
                 <ComObjectRefRef RefId="%AID%_O-%TT%00001_R-%TT%0000101"/>
                 <ComObjectRefRef RefId="%AID%_O-%TT%00002_R-%TT%0000201"/>
                 <ComObjectRefRef RefId="%AID%_O-%TT%00007_R-%TT%0000701"/>
@@ -193,6 +227,8 @@
                 <ComObjectRefRef RefId="%AID%_O-%TT%00009_R-%TT%0000901"/>
                 <ComObjectRefRef RefId="%AID%_O-%TT%00010_R-%TT%0001001"/>
                 <ComObjectRefRef RefId="%AID%_O-%TT%00011_R-%TT%0001101"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00012_R-%TT%0001201"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00013_R-%TT%0001301"/>
               </ParameterBlock>  
               <ParameterBlock Id="%AID%_PB-nnn" Name="Temperatures" Text="Temperaturen" Icon="thermometer">
                 <ParameterSeparator Id="%AID%_PS-50" Text="Umgebungstemperatur" UIHint="Headline"/>
