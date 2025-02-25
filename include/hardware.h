@@ -2,23 +2,10 @@
 #include "OpenKNXHardware.h"
 
 #ifdef ARDUINO_ARCH_RP2040
-    #ifdef StoveControl_RP2040
+    #ifdef DEVICE_RP2040_STOVECONTROLLER
         // #define OPENKNX_RECOVERY_ON LOW
-        #define PROG_LED_PIN D8
-        #define PROG_LED_PIN_ACTIVE_ON HIGH
-        //#define INFO1_LED_PIN D8
-        //#define INFO1_LED_PIN_ACTIVE_ON HIGH
-        #define PROG_BUTTON_PIN D3
-        #define PROG_BUTTON_PIN_INTERRUPT_ON FALLING
-        #define SAVE_INTERRUPT_PIN D1
-        #define STOVE_UART_RX_PIN D10
-        #define STOVE_UART_TX_PIN D9
-        //#define KNX_UART_RX_PIN D6
-        //#define KNX_UART_TX_PIN D7
-    #endif
-
-    #ifdef StoveControl_PiPico
-        // #define OPENKNX_RECOVERY_ON LOW
+        #define DEVICE_ID "GW-AP-FUMIS"
+        #define DEVICE_NAME "OpenKNX Fumis Gateway"
         #define PROG_LED_PIN 3
         #define PROG_LED_PIN_ACTIVE_ON HIGH
         #define INFO1_LED_PIN 11
@@ -33,8 +20,6 @@
         #define I2C_SDA_PIN 20
         #define I2C_SCL_PIN 21
     #endif
-
-
 #endif
 
 #ifdef ARDUINO_ARCH_ESP32

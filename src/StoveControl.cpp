@@ -72,8 +72,6 @@ const std::string StoveControl::version(){
     return "";
 }
 
-
-
 void StoveControl::setup(bool configured)
 {
     
@@ -87,7 +85,6 @@ void StoveControl::setup1(bool configured)
     Serial.println("initialize Failed");
 }
 
-
 void StoveControl::loop1(bool configured){
   if(configured){
     loopStove();
@@ -95,22 +92,15 @@ void StoveControl::loop1(bool configured){
 }
 
 void StoveControl::loop(bool configured)
-{
-
-
-  //Serial.println(PWR);
-
-  
+{ 
   if(configured){
     loopStoveTemperatures(T1,T2,T3);
     loopStoveValues(STATUS, SERVICETIMEh, SERVICETIMEm, PWR, setPoint, PQT, DP_PRESS, IGN);
     toggleStove(); 
     NewSetpoint();
-    NewPWR();
-    
+    NewPWR();   
   }
 }
-
 
 bool StoveControl::SetupStove(){ 
     bool state = (myPala.initialize(myOpenSerial, myCloseSerial, mySelectSerial, myReadSerial, myWriteSerial, myDrainSerial, myFlushSerial, myUSleep) == Palazzetti::CommandResult::OK);
@@ -129,7 +119,6 @@ void StoveControl::loopStove(){
     logDebugP("Get Values from stove");
     myPala.getStatus(&STATUS, &LSTATUS, &FSTATUS);
     logDebugP("myPala.GetStatus : STATUS=%d LSTATUS=%d FSTATUS=%d\r\n", STATUS, LSTATUS, FSTATUS);
-       
     myPala.getSetPoint(&setPoint);
     myPala.getPelletQtUsed(&PQT);
     myPala.getPower(&PWR, &FDR);
@@ -144,19 +133,13 @@ void StoveControl::loopStove(){
       logDebugP("SERVICETIMEm=%f",SERVICETIMEm);
       logDebugP("SERVICETIMEh=%f",SERVICETIMEh);
       logDebugP("PWR=%d",PWR);
-      
-      Serial.println("---------");
-      Serial.println(PWR);   // byte --> 2
-      Serial.println(PQT);
-      Serial.println("---------");
-
       logDebugP("PQT=%d",PQT);
       logDebugP("DP_TARGET=%d",DP_TARGET);
       logDebugP("DP_PRESS=%d",DP_PRESS);
       logDebugP("IGN=%d",IGN);   // IGN --> 389
-      Serial.println("ServiceTime"); 
-      Serial.println(SERVICETIMEm);   // 20 Minuten  
-      Serial.println(SERVICETIMEh);   // 888 Stunden 
+      //Serial.println("ServiceTime"); 
+      //Serial.println(SERVICETIMEm);   // 20 Minuten  
+      //Serial.println(SERVICETIMEh);   // 888 Stunden 
       //Serial.println(PWR);            // 3      2
       //Serial.println(PQT);            // 65535
       logDebugP("-----------------");
@@ -201,14 +184,14 @@ void StoveControl::loopStoveTemperatures(float T1,float T2 ,float T3){
         float current_temp_diffT1 = T1 - _temperatureT1_last_send_value;
         sendnow1 = current_temp_diffT1 >= SendTresh1 || 0 - current_temp_diffT1 >= SendTresh1;
         if(sendnow1){
-          logDebugP("Send TempT1KO Diff: %f", current_temp_diffT1);
+          logDebugP("Send temperatur T1 KO Diff: %f", current_temp_diffT1);
         }
       }
     }
 
     if(sendnow1){
       KoSEN_AmbientTemperature.value(T1, DPT_Value_Temp);
-      logDebugP("Send TempT1KO: %f", T1 );
+      logDebugP("Send temperatur T1 KO: %f", T1 );
       _temperatureT1_last_send_millis = millis();
       _temperatureT1_last_send_value = T1;
     }
@@ -234,14 +217,14 @@ void StoveControl::loopStoveTemperatures(float T1,float T2 ,float T3){
         float current_temp_diffT2 = T2 - _temperatureT2_last_send_value;
         sendnow2 = current_temp_diffT2 >= SendTresh2 || 0 - current_temp_diffT2 >= SendTresh2;
         if(sendnow2){
-          logDebugP("Send TempT2KO Diff: %f", current_temp_diffT2);
+          logDebugP("Send temperatur T2 KO Diff: %f", current_temp_diffT2);
         }
       }
     }
 
     if(sendnow2){
         KoSEN_PelletsTemperature.value(T2, DPT_Value_Temp);
-        logDebugP("Send TempT2KO: %f", T2 );
+        logDebugP("Send temperatur T2 KO: %f", T2 );
         _temperatureT2_last_send_millis = millis();
         _temperatureT2_last_send_value = T2;
     }
@@ -267,14 +250,14 @@ void StoveControl::loopStoveTemperatures(float T1,float T2 ,float T3){
         float current_temp_diffT3 = T3 - _temperatureT3_last_send_value;
         sendnow3 = current_temp_diffT3 >= SendTresh3 || 0 - current_temp_diffT3 >= SendTresh3;
         if(sendnow3){
-          logDebugP("Send TempT3KO Diff: %f", current_temp_diffT3);
+          logDebugP("Send temperatur T3 KO Diff: %f", current_temp_diffT3);
         }
       }
     }
 
     if(sendnow3){
       KoSEN_FumesTemperatur.value(T3, DPT_Value_Temp);
-      logDebugP("Send TempT3KO: %f", T3 );
+      logDebugP("Send temperatur T3 KO: %f", T3 );
       _temperatureT3_last_send_millis = millis();
       _temperatureT3_last_send_value = T3;
     }
@@ -300,12 +283,10 @@ void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint1
   
     if(STATUS > 0){_STATUS = 1;}
     if(sendnowSToveState){
-      if(_StoveState_last_send_value != _STATUS){   
         KoSEN_StoveState.value(_STATUS, DPT_State);
-        logDebugP("Send Stovestate: %f", _STATUS);
+        logDebugP("Send stove state KO: %d", _STATUS);
         _StoveState_last_send_millis = millis();
         _StoveState_last_send_value = _STATUS;
-      }
     }
     else{
       KoSEN_StoveState.valueNoSend(_STATUS, DPT_State);}
@@ -325,12 +306,10 @@ void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint1
     }
     
     if(sendnowServiceTime){
-      if(_ServiceTime_last_send_value != SERVICETIME){    
         KoSEN_ServiceTime.value(SERVICETIME, DPT_TimePeriodMin);
-        logDebugP("Send ServiceTime: %d", SERVICETIME );
+        logDebugP("Send service time KO: %d", SERVICETIME );
         _ServiceTime_last_send_millis = millis();
         _ServiceTime_last_send_value = SERVICETIME;
-      }
     }
     else{KoSEN_ServiceTime.valueNoSend(SERVICETIME, DPT_TimePeriodMin);}
   }
@@ -347,12 +326,10 @@ void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint1
     }
     
     if(sendnowPQT){
-      if(_PQT_last_send_value != PQT){    
         KoSEN_PelletsUsed.value(PQT, DPT_Value_Mass);
-        logDebugP("Send Pellets used: %f", PQT );
+        logDebugP("Send pellets used KO: %f", PQT );
         _PQT_last_send_millis = millis();
         _PQT_last_send_value = PQT;
-      }
     }
     else{KoSEN_PelletsUsed.valueNoSend(PQT, DPT_Value_Mass);}
   }
@@ -369,12 +346,10 @@ void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint1
     }
     
     if(sendnowSetPoint){
-      if(_setPoint_last_send_value != setPoint){    
         KoSEN_CurrentSetpointAmbientTemperature.value(setPoint, DPT_Value_Temp);
-        logDebugP("Send setPointKO: %f", setPoint );
+        logDebugP("Send setPoint KO: %f", setPoint );
         _setPoint_last_send_millis = millis();
         _setPoint_last_send_value = setPoint;
-      }
     }
     else{KoSEN_CurrentSetpointAmbientTemperature.valueNoSend(setPoint, DPT_Value_Temp);}
   }
@@ -382,7 +357,7 @@ void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint1
   // current Powerlevel
   if(!isnan(PWR)){
 
-    uint8_t send_cyclePWR = SEN_PelletConsumptionSendCycle;
+    uint8_t send_cyclePWR = ParamSEN_StoveLevelSendCycle;
     uint32_t send_millisPWR = send_cyclePWR * 60000; 
     bool sendnowPWR = false;
 
@@ -391,12 +366,10 @@ void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint1
     }
     
     if(sendnowPWR){
-      if(_PWR_last_send_value != PWR){    
         KoSEN_CurrentPowerLevel.value(PWR, DPT_DecimalFactor);
-        logDebugP("Send Powerlevel: %d", PWR );
+        logDebugP("Send power level KO: %d", PWR );
         _PWR_last_send_millis = millis();
         _PWR_last_send_value = PWR;
-      }
     }
     else{KoSEN_CurrentPowerLevel.valueNoSend(PWR, DPT_DecimalFactor);}
   }
@@ -413,15 +386,13 @@ void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint1
     }
     
     if(sendnowDP){
-      if(_DP_last_send_value != DP_PRESS){    
         KoSEN_Pressure.value(DP_PRESS, DPT_Value_Pres);
-        logDebugP("Send pressure: %d", DP_PRESS );
+        logDebugP("Send pressure KO: %d", DP_PRESS );
         _DP_last_send_millis = millis();
         _DP_last_send_value = DP_PRESS;
-      }
     }
     else{KoSEN_Pressure.valueNoSend(DP_PRESS, DPT_Value_Pres);}
-    }
+  }
 
   // ignitions 
   if(!isnan(IGN)){
@@ -435,15 +406,13 @@ void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint1
     }
     
     if(sendnowIGN){
-      if(_IGN_last_send_value != IGN){    
         KoSEN_Ignitions.value(IGN, DPT_DecimalFactor);
-        logDebugP("Send ignitions: %d", IGN );
+        logDebugP("Send ignitions KO: %d", IGN );
         _IGN_last_send_millis = millis();
         _IGN_last_send_value = IGN;
-      }
     }
     else{KoSEN_Ignitions.valueNoSend(IGN, DPT_DecimalFactor);}
-    }
+  }
 
 }
 
@@ -484,7 +453,7 @@ void StoveControl::NewSetpoint( ){
     if(_NewStoveSetpoint_last_send_value != NewSetPoint){
       if(NewSetPoint > setPoint || NewSetPoint < setPoint){
         #ifdef Serial_Debug
-          logDebugP("New SetpointNew Diff: %f", NewSetPoint);
+          logDebugP("New setpoint: %f", NewSetPoint);
         #endif
         // Set new Setpoint Value
         myPala.setSetpoint(NewSetPoint, &SETPReturn);
@@ -504,7 +473,7 @@ void StoveControl::NewPWR(){
     if(_NewPowerlevel_last_send_value != NewPowerlevel){
       if(NewPowerlevel > PWR || NewPowerlevel < PWR){
         #ifdef Serial_Debug
-          logDebugP("New powerlevel : %d", NewPowerlevel);
+          logDebugP("New power level : %d", NewPowerlevel);
         #endif
         // Set new powerlevel
         myPala.setPower(NewPowerlevel);
@@ -521,8 +490,7 @@ void StoveControl::NewPWR(){
 
 void StoveControl::processInputKo(GroupObject& ko){
   //logDebugP("processInputKo GA%04X", ko.asap());
-  //logHexDebugP(ko.valueRef(), ko.valueSize());
-    
+  //logHexDebugP(ko.valueRef(), ko.valueSize()); 
 }
 
 StoveControl openknxStoveControlModule;

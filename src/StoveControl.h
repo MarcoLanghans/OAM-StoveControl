@@ -14,7 +14,7 @@ class StoveControl : public OpenKNX::Module
     float T1 = 0.0;  // Ambiant temperature
     float T2 = 0.0;  // pellet temperature
     float T3 = 0.0;  // Fumes temperature 
-    float T4 = 0.0;
+    float T4 = 0.0;  
     float T5 = 0.0;
     float setPoint;  // target room temperature
     uint16_t PQT;
@@ -38,20 +38,12 @@ class StoveControl : public OpenKNX::Module
     uint16_t IGNERRORS;
     uint16_t DP_TARGET; 
     uint16_t DP_PRESS;
-    //bool m_input0 = 0;
-    //bool m_input1 = 0;
-    //bool m_input2 = 0;
-    //bool m_input3 = 0;
-    //unsigned long _timeout = 200;
-    //unsigned long lastUpdate =-1;
-    #define UPDATEINTERVAL 30000
-    // Timer variables
+     #define UPDATEINTERVAL 30000
+    
+     // Timer variables
     unsigned long lastTimeWebserver = 0;
     unsigned long timerDelayWebserver = 30000;
-   
-    uint32_t _input0_debounce_millis = 0; // Internal Input
-    uint32_t _input0_last_send_millis = 0; // Internal Input
-   
+    
     uint32_t _temperatureT1_last_send_millis = 0;
     float _temperatureT1_last_send_value = -1000;
 
