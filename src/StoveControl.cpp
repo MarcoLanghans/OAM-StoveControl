@@ -294,7 +294,7 @@ void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint1
   
   // ServiceTime
   // Umrechnung auf Minuten
-  SERVICETIME = SERVICETIMEh + SERVICETIMEm; 
+  SERVICETIME = (SERVICETIMEh * 60 ) + SERVICETIMEm; 
   if(!isnan(SERVICETIME)){
 
     uint8_t send_cycleServiceTime = ParamSEN_MaintenanceTimerSendCycle;
@@ -406,12 +406,12 @@ void StoveControl::loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint1
     }
     
     if(sendnowIGN){
-        KoSEN_Ignitions.value(IGN, DPT_DecimalFactor);
+        KoSEN_Ignitions.value(IGN, DPT_Value_4_Count);
         logDebugP("Send ignitions KO: %d", IGN );
         _IGN_last_send_millis = millis();
         _IGN_last_send_value = IGN;
     }
-    else{KoSEN_Ignitions.valueNoSend(IGN, DPT_DecimalFactor);}
+    else{KoSEN_Ignitions.valueNoSend(IGN, DPT_Value_4_Count);}
   }
 
 }
@@ -466,7 +466,7 @@ void StoveControl::NewSetpoint( ){
 void StoveControl::NewPWR(){
   
   uint16_t NewPowerlevel = KoSEN_SetPointPowerLevel.value(DPT_DecimalFactor);
-
+  
   if(NewPowerlevel > 5){NewPowerlevel = 5;}
 
   if(!isnan(NewPowerlevel)){
