@@ -107,6 +107,54 @@
                 <Parameter Id="%AID%_UP-%TT%00030" Name="PressureSendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
               </Union>
 
+              <!-- Heat Timer-->
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="21" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00031" Name="HeatTimerSendChange" Offset="0" BitOffset="0" ParameterType="%AID%_PT-OnOffYesNo" Text="Senden bei Änderung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00032" Name="HeatTimerSendChangeAmount" Offset="1" BitOffset="0" ParameterType="%AID%_PT-TempOnChange" Text="     von mehr als" SuffixText="K" Value="0.5" />
+                <Parameter Id="%AID%_UP-%TT%00033" Name="HeatTimerSendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
+              </Union>
+
+              <!-- On Timer-->
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="23" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00034" Name="OnTimerSendChange" Offset="0" BitOffset="0" ParameterType="%AID%_PT-OnOffYesNo" Text="Senden bei Änderung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00035" Name="OnTimerSendChangeAmount" Offset="1" BitOffset="0" ParameterType="%AID%_PT-TempOnChange" Text="     von mehr als" SuffixText="K" Value="0.5" />
+                <Parameter Id="%AID%_UP-%TT%00036" Name="OnTimerSendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
+              </Union>
+
+              <!-- Power Timer-->
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="25" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00037" Name="PowerTimerSendChange" Offset="0" BitOffset="0" ParameterType="%AID%_PT-OnOffYesNo" Text="Senden bei Änderung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00038" Name="PowerTimerSendChangeAmount" Offset="1" BitOffset="0" ParameterType="%AID%_PT-TempOnChange" Text="     von mehr als" SuffixText="K" Value="0.5" />
+                <Parameter Id="%AID%_UP-%TT%00039" Name="PowerTimerSendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
+              </Union>
+
+              <!-- Feeder-->
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="27" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00040" Name="FeederSendChange" Offset="0" BitOffset="0" ParameterType="%AID%_PT-OnOffYesNo" Text="Senden bei Änderung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00041" Name="FeederSendChangeAmount" Offset="1" BitOffset="0" ParameterType="%AID%_PT-TempOnChange" Text="     von mehr als" SuffixText="K" Value="0.5" />
+                <Parameter Id="%AID%_UP-%TT%00042" Name="FeederSendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
+              </Union>
+
+              <!-- Ignition Errors -->
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="29" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00043" Name="IgnitionErrorsSendChange" Offset="0" BitOffset="0" ParameterType="%AID%_PT-OnOffYesNo" Text="Senden bei Änderung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00044" Name="IgnitionErrorsSendChangeAmount" Offset="1" BitOffset="0" ParameterType="%AID%_PT-TempOnChange" Text="     von mehr als" SuffixText="K" Value="0.5" />
+                <Parameter Id="%AID%_UP-%TT%00045" Name="IgnitionErrorsSendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
+              </Union>
+
+              <!-- Overheat Errors -->
+              <Union SizeInBit="16">
+                <Memory CodeSegment="%MID%" Offset="31" BitOffset="0" />
+                <Parameter Id="%AID%_UP-%TT%00046" Name="OverheatErrorsSendChange" Offset="0" BitOffset="0" ParameterType="%AID%_PT-OnOffYesNo" Text="Senden bei Änderung" Value="0" />
+                <Parameter Id="%AID%_UP-%TT%00047" Name="OverheatErrorsSendChangeAmount" Offset="1" BitOffset="0" ParameterType="%AID%_PT-TempOnChange" Text="     von mehr als" SuffixText="K" Value="0.5" />
+                <Parameter Id="%AID%_UP-%TT%00048" Name="OverheatErrorsSendCycle" Offset="5" BitOffset="0" ParameterType="%AID%_PT-SendCycleSelection" Text="Zyklisch senden alle" Value="5" />
+              </Union>
+
             </Parameters>
             <ParameterRefs>  
               <!--Temperature 1-->
@@ -149,15 +197,45 @@
               <ParameterRef Id="%AID%_UP-%TT%00023_R-%TT%0002301" RefId="%AID%_UP-%TT%00023"/>
               <ParameterRef Id="%AID%_UP-%TT%00024_R-%TT%0002401" RefId="%AID%_UP-%TT%00024"/>
 
-              <!-- Ignitions Timer-->
+              <!-- Ignitions -->
               <ParameterRef Id="%AID%_UP-%TT%00025_R-%TT%0002501" RefId="%AID%_UP-%TT%00025"/>
               <ParameterRef Id="%AID%_UP-%TT%00026_R-%TT%0002601" RefId="%AID%_UP-%TT%00026"/>
               <ParameterRef Id="%AID%_UP-%TT%00027_R-%TT%0002701" RefId="%AID%_UP-%TT%00027"/>
 
-              <!-- Pressure Timer-->
+              <!-- Pressure -->
               <ParameterRef Id="%AID%_UP-%TT%00028_R-%TT%0002801" RefId="%AID%_UP-%TT%00028"/>
               <ParameterRef Id="%AID%_UP-%TT%00029_R-%TT%0002901" RefId="%AID%_UP-%TT%00029"/>
               <ParameterRef Id="%AID%_UP-%TT%00030_R-%TT%0003001" RefId="%AID%_UP-%TT%00030"/>
+
+              <!-- HeatTime Timer-->
+              <ParameterRef Id="%AID%_UP-%TT%00031_R-%TT%0003101" RefId="%AID%_UP-%TT%00031"/>
+              <ParameterRef Id="%AID%_UP-%TT%00032_R-%TT%0003201" RefId="%AID%_UP-%TT%00032"/>
+              <ParameterRef Id="%AID%_UP-%TT%00033_R-%TT%0003301" RefId="%AID%_UP-%TT%00033"/>
+
+              <!-- On Timer-->
+              <ParameterRef Id="%AID%_UP-%TT%00034_R-%TT%0003401" RefId="%AID%_UP-%TT%00034"/>
+              <ParameterRef Id="%AID%_UP-%TT%00035_R-%TT%0003501" RefId="%AID%_UP-%TT%00035"/>
+              <ParameterRef Id="%AID%_UP-%TT%00036_R-%TT%0003601" RefId="%AID%_UP-%TT%00036"/>
+
+              <!-- Power Timer-->
+              <ParameterRef Id="%AID%_UP-%TT%00037_R-%TT%0003701" RefId="%AID%_UP-%TT%00037"/>
+              <ParameterRef Id="%AID%_UP-%TT%00038_R-%TT%0003801" RefId="%AID%_UP-%TT%00038"/>
+              <ParameterRef Id="%AID%_UP-%TT%00039_R-%TT%0003901" RefId="%AID%_UP-%TT%00039"/>
+
+              <!-- Feeder -->
+              <ParameterRef Id="%AID%_UP-%TT%00040_R-%TT%0004001" RefId="%AID%_UP-%TT%00040"/>
+              <ParameterRef Id="%AID%_UP-%TT%00041_R-%TT%0004101" RefId="%AID%_UP-%TT%00041"/>
+              <ParameterRef Id="%AID%_UP-%TT%00042_R-%TT%0004201" RefId="%AID%_UP-%TT%00042"/>
+
+              <!-- Ignition errors -->
+              <ParameterRef Id="%AID%_UP-%TT%00043_R-%TT%0004301" RefId="%AID%_UP-%TT%00043"/>
+              <ParameterRef Id="%AID%_UP-%TT%00044_R-%TT%0004401" RefId="%AID%_UP-%TT%00044"/>
+              <ParameterRef Id="%AID%_UP-%TT%00045_R-%TT%0004501" RefId="%AID%_UP-%TT%00045"/>
+
+              <!-- Overheat errors -->
+              <ParameterRef Id="%AID%_UP-%TT%00046_R-%TT%0004601" RefId="%AID%_UP-%TT%00046"/>
+              <ParameterRef Id="%AID%_UP-%TT%00047_R-%TT%0004701" RefId="%AID%_UP-%TT%00047"/>
+              <ParameterRef Id="%AID%_UP-%TT%00048_R-%TT%0004801" RefId="%AID%_UP-%TT%00048"/>
 
             </ParameterRefs>
             <ComObjectTable>
@@ -174,7 +252,12 @@
               <ComObject Id="%AID%_O-%TT%00011" Name="PelletsUsed" Text="Brennstoffverbrauch" Number="11" FunctionText="Messwert in kg" ObjectSize="4 Bytes" ReadFlag="Disabled" WriteFlag="Enabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-14-51" />       
               <ComObject Id="%AID%_O-%TT%00012" Name="Ignitions" Text="Zündungen" Number="12" FunctionText="Messwert" ObjectSize="4 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-13-1" />       
               <ComObject Id="%AID%_O-%TT%00013" Name="Pressure" Text="Differenzdruck" Number="13" FunctionText="Messwert in mPa" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-6"/>
-              
+              <ComObject Id="%AID%_O-%TT%00014" Name="HeatTime" Text="Heizzeit" Number="14" FunctionText="Messwert" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-7-6" />
+              <ComObject Id="%AID%_O-%TT%00015" Name="OnTime" Text="Einschaltzeit" Number="15" FunctionText="Messwert" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-7-6" />
+              <ComObject Id="%AID%_O-%TT%00016" Name="PowerTime" Text="Betriebszeit" Number="16" FunctionText="Messwert" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-7-6" />
+              <ComObject Id="%AID%_O-%TT%00017" Name="Feeder" Text="Zuführung" Number="17" FunctionText="Messwert" ObjectSize="2 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-9-25" />
+              <ComObject Id="%AID%_O-%TT%00018" Name="IgnitionsErrors" Text="Zündfehler" Number="18" FunctionText="Messwert" ObjectSize="4 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-13-1" />
+              <ComObject Id="%AID%_O-%TT%00019" Name="OverheatErrors" Text="Überhitzungsfehler" Number="19" FunctionText="Messwert" ObjectSize="4 Bytes" ReadFlag="Enabled" WriteFlag="Disabled" CommunicationFlag="Enabled" TransmitFlag="Enabled" UpdateFlag="Disabled" ReadOnInitFlag="Disabled" DatapointType="DPST-13-1" />
 
             </ComObjectTable>
             <ComObjectRefs>
@@ -191,6 +274,13 @@
               <ComObjectRef Id="%AID%_O-%TT%00011_R-%TT%0001101" RefId="%AID%_O-%TT%00011"/>
               <ComObjectRef Id="%AID%_O-%TT%00012_R-%TT%0001201" RefId="%AID%_O-%TT%00012"/>
               <ComObjectRef Id="%AID%_O-%TT%00013_R-%TT%0001301" RefId="%AID%_O-%TT%00013"/>
+              <ComObjectRef Id="%AID%_O-%TT%00014_R-%TT%0001401" RefId="%AID%_O-%TT%00014"/>
+              <ComObjectRef Id="%AID%_O-%TT%00015_R-%TT%0001501" RefId="%AID%_O-%TT%00015"/>
+              <ComObjectRef Id="%AID%_O-%TT%00016_R-%TT%0001601" RefId="%AID%_O-%TT%00016"/>
+              <ComObjectRef Id="%AID%_O-%TT%00017_R-%TT%0001701" RefId="%AID%_O-%TT%00017"/>
+              <ComObjectRef Id="%AID%_O-%TT%00018_R-%TT%0001801" RefId="%AID%_O-%TT%00018"/>
+              <ComObjectRef Id="%AID%_O-%TT%00019_R-%TT%0001901" RefId="%AID%_O-%TT%00019"/>
+
             </ComObjectRefs>
           </Static>
           <Dynamic>   
@@ -205,30 +295,22 @@
                 <ParameterSeparator Id="%AID%_PS-50" Text="Status" UIHint="Headline"/>
                 <ParameterRefRef RefId="%AID%_UP-%TT%00012_R-%TT%0001201"/>
                 <!--ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" /--> 
-                <ParameterSeparator Id="%AID%_PS-50" Text="Sollwert Umgebungstemperatur" UIHint="Headline"/>
-                <ParameterRefRef RefId="%AID%_UP-%TT%00015_R-%TT%0001501"/>
-                <!--ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" /--> 
                 <ParameterSeparator Id="%AID%_PS-50" Text="Aktuelle Leistungsstufe" UIHint="Headline"/>
                 <ParameterRefRef RefId="%AID%_UP-%TT%00018_R-%TT%0001801"/>
-                <!--ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" /--> 
-                <ParameterSeparator Id="%AID%_PS-50" Text="Brennstofverbrauch" UIHint="Headline"/>
-                <ParameterRefRef RefId="%AID%_UP-%TT%00021_R-%TT%0002101"/>
-                <!--ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" /--> 
-                <ParameterSeparator Id="%AID%_PS-50" Text="Wartungstimer" UIHint="Headline"/> 
-                <ParameterRefRef RefId="%AID%_UP-%TT%00024_R-%TT%0002401"/>
                 <ParameterSeparator Id="%AID%_PS-50" Text="Zündungen" UIHint="Headline"/> 
                 <ParameterRefRef RefId="%AID%_UP-%TT%00027_R-%TT%0002701"/>
                 <ParameterSeparator Id="%AID%_PS-50" Text="Differenzdruck" UIHint="Headline"/> 
                 <ParameterRefRef RefId="%AID%_UP-%TT%00030_R-%TT%0003001"/>
+                <ParameterSeparator Id="%AID%_PS-50" Text="Zuführung" UIHint="Headline"/> 
+                <ParameterRefRef RefId="%AID%_UP-%TT%00042_R-%TT%0004201"/>
+                <!-- ComObjects-->
                 <ComObjectRefRef RefId="%AID%_O-%TT%00001_R-%TT%0000101"/>
                 <ComObjectRefRef RefId="%AID%_O-%TT%00002_R-%TT%0000201"/>
-                <ComObjectRefRef RefId="%AID%_O-%TT%00007_R-%TT%0000701"/>
-                <ComObjectRefRef RefId="%AID%_O-%TT%00008_R-%TT%0000801"/>
                 <ComObjectRefRef RefId="%AID%_O-%TT%00009_R-%TT%0000901"/>
                 <ComObjectRefRef RefId="%AID%_O-%TT%00010_R-%TT%0001001"/>
-                <ComObjectRefRef RefId="%AID%_O-%TT%00011_R-%TT%0001101"/>
                 <ComObjectRefRef RefId="%AID%_O-%TT%00012_R-%TT%0001201"/>
                 <ComObjectRefRef RefId="%AID%_O-%TT%00013_R-%TT%0001301"/>
+
               </ParameterBlock>  
               <ParameterBlock Id="%AID%_PB-nnn" Name="Temperatures" Text="Temperaturen" Icon="thermometer">
                 <ParameterSeparator Id="%AID%_PS-50" Text="Umgebungstemperatur" UIHint="Headline"/>
@@ -257,10 +339,45 @@
                     </when>
                   </choose>
                 <ParameterRefRef RefId="%AID%_UP-%TT%00009_R-%TT%0000901"/>
+                <ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" /> 
+                <ParameterSeparator Id="%AID%_PS-50" Text="Sollwert Umgebungstemperatur" UIHint="Headline"/>
+                <ParameterRefRef RefId="%AID%_UP-%TT%00015_R-%TT%0001501"/>
+                <!--ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" /--> 
+                <!-- ComObjects-->
                 <ComObjectRefRef RefId="%AID%_O-%TT%00003_R-%TT%0000301"/>
                 <ComObjectRefRef RefId="%AID%_O-%TT%00004_R-%TT%0000401"/>
                 <ComObjectRefRef RefId="%AID%_O-%TT%00005_R-%TT%0000501"/>
                 <ComObjectRefRef RefId="%AID%_O-%TT%00006_R-%TT%0000601"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00007_R-%TT%0000701"/>
+
+              </ParameterBlock>
+              <ParameterBlock Id="%AID%_PB-nnn" Name="Statistiken" Text="Statistiken" Icon="chart-bar">
+                <!--ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" /--> 
+                <ParameterSeparator Id="%AID%_PS-50" Text="Brennstofverbrauch" UIHint="Headline"/>
+                <ParameterRefRef RefId="%AID%_UP-%TT%00021_R-%TT%0002101"/>
+                <!--ParameterSeparator Id="%AID%_PS-nnn" Text="" UIHint="HorizontalRuler" /--> 
+                <ParameterSeparator Id="%AID%_PS-50" Text="Wartungszeit" UIHint="Headline"/> 
+                <ParameterRefRef RefId="%AID%_UP-%TT%00024_R-%TT%0002401"/>
+                <ParameterSeparator Id="%AID%_PS-50" Text="Heizzeit" UIHint="Headline"/> 
+                <ParameterRefRef RefId="%AID%_UP-%TT%00033_R-%TT%0003301"/>
+                <ParameterSeparator Id="%AID%_PS-50" Text="Einschaltzeit" UIHint="Headline"/> 
+                <ParameterRefRef RefId="%AID%_UP-%TT%00036_R-%TT%0003601"/>
+                <ParameterSeparator Id="%AID%_PS-50" Text="Betriebszeit" UIHint="Headline"/> 
+                <ParameterRefRef RefId="%AID%_UP-%TT%00039_R-%TT%0003901"/>
+                <ParameterSeparator Id="%AID%_PS-50" Text="Zündfehler" UIHint="Headline"/> 
+                <ParameterRefRef RefId="%AID%_UP-%TT%00045_R-%TT%0004501"/>
+                <ParameterSeparator Id="%AID%_PS-50" Text="Überhitzungsfehler" UIHint="Headline"/> 
+                <ParameterRefRef RefId="%AID%_UP-%TT%00048_R-%TT%0004801"/>
+                <!-- ComObjects-->
+                <ComObjectRefRef RefId="%AID%_O-%TT%00008_R-%TT%0000801"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00011_R-%TT%0001101"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00014_R-%TT%0001401"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00015_R-%TT%0001501"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00016_R-%TT%0001601"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00017_R-%TT%0001701"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00018_R-%TT%0001801"/>
+                <ComObjectRefRef RefId="%AID%_O-%TT%00019_R-%TT%0001901"/>
+
               </ParameterBlock>
               <!--ParameterBlock Id="%AID%_PB-nnn" Name="I2C" Text="Externer Sensor (I2C)" Icon="location-enter">
                 <ParameterRefRef RefId="%AID%_UP-%TT%00010_R-%TT%0001001"/>

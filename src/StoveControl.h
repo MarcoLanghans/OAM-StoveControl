@@ -5,7 +5,7 @@ class StoveControl : public OpenKNX::Module
 {
   private:
     void loopStoveTemperatures(float T1,float T2 ,float T3);
-    void loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint16_t SERVICETIMEm, byte PWR, float setPoint, uint16_t PQT, uint16_t DP_PRESS, uint16_t IGN);
+    void loopStoveValues(uint16_t STATUS, uint16_t SERVICETIMEh, uint16_t SERVICETIMEm, uint16_t HEATTIMEh, uint16_t HEATTIMEm, uint16_t POWERTIMEh, uint16_t POWERTIMEm,uint16_t ONTIMEh, uint16_t ONTIMEhm, byte PWR, float setPoint, uint16_t PQT, uint16_t DP_PRESS, uint16_t IGN,float FDR, uint16_t OVERTMPERRORS, uint16_t IGNERRORS);
     void toggleStove();
     void NewSetpoint();
     void NewPWR();
@@ -27,18 +27,22 @@ class StoveControl : public OpenKNX::Module
     uint16_t IGN;
     uint16_t POWERTIMEh;
     uint16_t POWERTIMEm;
+    uint32_t POWERTIME;
     uint16_t HEATTIMEh;
     uint16_t HEATTIMEm;
+    uint16_t HEATTIME;
     uint16_t SERVICETIMEh;
     uint16_t SERVICETIMEm;
     uint16_t SERVICETIME;
     uint16_t ONTIMEh;
     uint16_t ONTIMEm;
+    uint16_t ONTIME;
     uint16_t OVERTMPERRORS;
     uint16_t IGNERRORS;
     uint16_t DP_TARGET; 
     uint16_t DP_PRESS;
-     #define UPDATEINTERVAL 30000
+    bool StoveBlocked = false;
+    #define UPDATEINTERVAL 30000
     
      // Timer variables
     unsigned long lastTimeWebserver = 0;
@@ -65,6 +69,15 @@ class StoveControl : public OpenKNX::Module
     uint32_t _PQT_last_send_millis = 0;
     float _PQT_last_send_value = 0;
 
+    uint32_t _FDR_last_send_millis = 0;
+    float _FDR_last_send_value = 0;
+
+    uint32_t _OVERTMPERRORS_last_send_millis = 0;
+    float _OVERTMPERRORS_last_send_value = 0;
+
+    uint32_t _IGNERRORS_last_send_millis = 0;
+    float _IGNERRORS_last_send_value = 0;
+
     uint32_t _DP_last_send_millis = 0;
     float _DP_last_send_value = 0;
 
@@ -73,6 +86,15 @@ class StoveControl : public OpenKNX::Module
 
     uint32_t _ServiceTime_last_send_millis = 0;
     float _ServiceTime_last_send_value = 0;
+
+    uint32_t _PowerTime_last_send_millis = 0;
+    float _PowerTime_last_send_value = 0;
+
+    uint32_t _HeatTime_last_send_millis = 0;
+    float _HeatTime_last_send_value = 0;
+
+    uint32_t _OnTime_last_send_millis = 0;
+    float _OnTime_last_send_value = 0;
 
     uint32_t _Stove_last_run = 0;
 
